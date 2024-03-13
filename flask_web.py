@@ -65,6 +65,13 @@ def index():
 def password_gen_test():
     return password_gen(20)
 
+# Todo Fix this to redirect to about.html
+@app.route("/about")
+def about_page():
+    return ("""<h1> Not setup </h1>
+            <p> This isn't setup yet! </p>
+    """)
+
 @app.route("/password_gen")
 def password_gen_page():
     return render_template("password_gen.html", passwords=password_gen(20))
