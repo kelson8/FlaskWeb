@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title> KelsonCraft Website </title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 
-        {% include "partials/head.html" %}
+<head>
+  <title> KelsonCraft Website </title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 
-    </head>
+  {% include "partials/head.html" %}
 
-    <body class="container">
-    <header>
-        <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
-        {% include "partials/header.html" %}
-  </nav>
-    </header>
+</head>
 
-    <main>
-        <div class="mt-4 p-5 bg-success text-white rounded">
-            <h1 id="main_header1"> Testing random stuff </h1>
-            <!-- <p> Welcome to the KelsonCraft Flask website. </p>
+<body class="container">
+  <header>
+    <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
+    {% include "partials/header.html" %}
+    </nav>
+  </header>
+
+  <main>
+    <div class="mt-4 p-5 bg-secondary text-white rounded">
+      <h1 id="main_header1"> Testing random stuff </h1>
+      <!-- <p> Welcome to the KelsonCraft Flask website. </p>
             <p> I will be hosting some projects here, possibly a WordPress and other random stuff that I may work on. </p>
             </p> -->
-            <p> Welcome to the test page. </p>
-            <!-- https://stackoverflow.com/questions/3676127/how-do-i-make-a-text-input-non-editable -->
-        <input type="text" value="Readonly Input" class="field left" readonly>
-        
-        </div>
-        </div>
-    </main>
+      <p> Welcome to the test page. </p>
+      <!-- https://stackoverflow.com/questions/3676127/how-do-i-make-a-text-input-non-editable -->
+      <input type="text" value="Readonly Input" class="field left" readonly>
 
     </div>
+    </div>
+  </main>
 
-    <button id="darkmodeBtn"> Toggle dark mode <span class="change"> OFF </span></button>
+  </div>
 
-    <footer>
-        {% include "partials/footer.html" %}
-    </footer>
+  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
 
-    <script src="{{url_for('static', filename='client.js')}}"></script>
-    <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-    <!-- <script src="{{url_for('static', filename='passwordgen.js')}}"> </script> -->
+  <footer>
+    {% include "partials/footer.html" %}
+  </footer>
 
-    </body>
+  <script src="{{url_for('static', filename='client.js')}}"></script>
+  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
+  <!-- <script src="{{url_for('static', filename='passwordgen.js')}}"> </script> -->
+
+</body>
+
 </html>

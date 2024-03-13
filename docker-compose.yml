@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  flask_test:
+    build: .
+    container_name: flask_test
+    networks:
+      - testing
+    volumes:
+      # - ./:/data
+      - ./:/app
+    ports:
+      - 8010:81
+      # - 5000:5000
+    restart: unless-stopped
+    command: waitress-serve --port 81 flask_web:app
+    # depends_on: 
+      # - mariadb_flask
+    
+  # mariadb_flask:
+    # image: lscr.io/linuxserver/mariadb:latest
+  # command: --skip-innodb-read-only-compressed
+    # container_name: mariadb_flask
+    # environment:
+      # - PUID=1000
+      # - PGID=1000
+      # - MYSQL_ROOT_PASSWORD=${mysql_root_password}
+      # - MYSQL_DATABASE=${mysql_database}
+      # - MYSQL_USER=${mysql_username}
+      # - MYSQL_PASSWORD=${mysql_password}
+      # - TZ=America/New_York
+     # - REMOTE_SQL=http://URL1/your.sql,https://URL2/your.sql #optional
+    # networks:
+      # - testing
+    # volumes:
+      # - ./config:/config
+      # - /etc/timezone:/etc/timezone:ro
+      # - /etc/localtime:/etc/localtime:ro
+    # restart: unless-stopped
+
+networks:
+  testing:
+    external: true
