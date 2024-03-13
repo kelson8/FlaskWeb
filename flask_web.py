@@ -34,13 +34,17 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files
 app.register_blueprint(simple_page)
 
-app.secret_key="VerySecretTest"
+app.secret_key= os.environ.get("SECRET_KEY")
 # Create the SQLAlchemy instance
 # app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{database_username}:{database_password}@{database_host}/{database_name}"
-app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{database_username}:{database_password}@{database_host}/{database_name}"
+app.config["SQLALCHEMY_DATABASE_URI"] = """f
+"mysql+pymysql://{database_username}:{database_password}@{database_host}/{database_name}"
+"""
 # db = SQLAlchemy(app)
 db = pymysql.connect(host=database_host, user=database_username, password=database_password, database=database_name)
 
+
+# # https://stackoverflow.com/questions/14343812/redirecting-to-url-in-flask
 
 # https://pynative.com/python-cursor-fetchall-fetchmany-fetchone-to-read-rows-from-table/
 def sql_results():
@@ -65,26 +69,36 @@ def index():
 def password_gen_test():
     return password_gen(20)
 
+#////////////////
+# About pages
+#////////////////
+
 # Todo Fix this to redirect to about.html
 @app.route("/about")
-def about_page():
-    return ("""<h1> Not setup </h1>
-            <p> This isn't setup yet! </p>
-    """)
+def about_main_page():
+    return render_template("about.html")
+
+# Fivem Server
+@app.route("/about-fivem")
+def about_fivem_page():
+    return render_template("about-fivem.html")
+
+# Minecraft Server
+@app.route("/about-mc")
+def about_mc_page():
+    return render_template("about-mc.html")
+
+# ////////////////
+# End about pages
+# ////////////////
 
 @app.route("/password_gen")
 def password_gen_page():
     return render_template("password_gen.html", passwords=password_gen(20))
 
-@app.route("/db_test")
-def db_test_page():
-    return render_template("db_test.html", results=sql_results())
-
-# https://stackoverflow.com/questions/14343812/redirecting-to-url-in-flask
-# Moved to header.html
-# @app.route("/node")
-# def home():
-#     return redirect("http://192.168.1.109:3001", code=302)
+# @app.route("/db_test")
+# def db_test_page():
+#     return render_template("db_test.html", results=sql_results())
 
 # Types that can be used in the @app.route
 # String Text without a slash

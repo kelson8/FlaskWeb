@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% include "partials/head.html" %}
+</head>
+
+<body class="container">
+
+  <header>
+    {% include "partials/header.html" %}
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="mt-4 p-5 bg-primary text-white rounded">
+          <h1>Welcome to the about page</h1>
+          <p>I will be hosting this site mostly in Python Flask. There is a couple of items on the sidebar for info pages.</p>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="well">
+
+          <h3>Minecraft server info: </h3> <a href="/about-mc">Here</a>
+          <h3>Fivem Server Info: </h3> <a href="/about-fivem">Here</a>
+          <h3>Git repo for the website code:</h3> <a href="https://git.internal.kelsoncraft.net/kelson8/FlaskWeb"
+            target="_blank">Here</a>
+        </div>
+      </div>
+
+
+      <!-- Try to get this box below centered with the other one, I'm not sure how to do that. -->
+      <!-- <div class="p-5 mb-4 bg-success rounded-3"> -->
+      <div class="row">
+
+        <div class="mt-4 p-5 bg-secondary text-white rounded-3">
+          <h1>About this site: </h1>
+          <hr>
+          <!-- <p class="col-md-8 fs-6"> The website source code will be published on github with these links below
+            <li class="col-md-8 fs-6"> <a
+                href="https://git.internal.kelsoncraft.net/kelson8/PythonProjects/src/branch/main/website/flask-test">
+                Flask </a> </li>
+            <li class="col-md-8 fs-6"> <a
+                href="https://git.internal.kelsoncraft.net/kelson8/docker-projects/src/branch/main/wsl/nodejs_test">
+                Nodejs </a> </li> -->
+
+                <p> 
+                  I will probably get a wordpress or something up and running on this webite in the future.
+                  Possibly a forum.
+                  <br>
+                  I have gitea running on this website <a href="https://git.kelsoncraft.net/" target="_blank"> Here </a>
+                  <br>
+                  I might start hosting a minecraft server and a fivem server on my network, I eventually want to get
+                  the FiveM server up and running with some of the scripts that I have created and put together.
+                </p>
+
+          <p class="col-md-8 fs-6">
+            <!-- All the code, including php, python, html, and javascript will be on that above link.<br>  -->
+            Anyone is welcome to take a look at the source code and it's
+            licensed with GPLV3 so do whatever you want with the code. Please give credit if you use any of it, thanks!
+          </p>
+        </div>
+
+
+        <div class="mt-4 p-5 bg-secondary text-white rounded-3">
+          <h1>About me</h1>
+          <hr>
+
+          <!-- <div class="col-sm-8"> -->
+          <p class="col-md-8 fs-6">Here's a little bit about myself, my name is Kelson and my username is usually
+            kelson8.
+            I've always been passionate about tech especially computer hardware, Minecraft coding for spigot is what
+            originally got me into programming.
+            <br> I have a small spigot plugin that I occasionally add features to, currently one of the noteable
+            features is the localchat.
+            <br>
+            <br> I recently really started getting into playing around with javascript. and I've enjoyed that.
+            <br>
+            <br>I've been learning a lot with nodejs and javascript in the browser, I'm not great at it though.
+          </p>
+
+
+        </div>
+        <!-- </div> -->
+
+      </div>
+  </main>
+
+  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
+
+  <footer>
+    {% include "partials/footer.html" %}
+  </footer>
+
+  <script src="{{url_for('static', filename='client.js')}}"></script>
+  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
+  <script src="{{url_for('static', filename='passwordgen.js')}}"> </script>
+
+</body>
+
+</html>

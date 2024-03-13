@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% include "partials/head.html" %}
+</head>
+
+<body class="container">
+
+  <header>
+    {% include "partials/header.html" %}
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="jumbotron">
+
+          <h1>KelsonCraft FiveM server</h1>
+          <p class="fs-6">Hello, this page will have info about the FiveM server.</p>
+          <p class="fs-6">
+            I have been working with Scaleform UI and lua to make a couple of basic menus. And I have some
+            custom lua scripts.<br>
+          </p>
+          <p class="fs-6">
+            Custom content:
+            <br> Street races gui - Press F5 to open (Unloading races currently doesn't work.)
+
+          </p>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="well">
+
+          <p class="fs-6">
+            <br> If I do decide to host a fivem server, it would be on <ins>local.kelsoncraft.net</ins>
+            (Default port 30110)
+            <br><br> I have been working on creating some free roam scripts and adding onto others. Mostly
+            just something to fool around with.
+            <br><br> Anyone is welcome to join, although with my 50mbps upload I will be limiting players to
+            about 10-15.
+            <!-- Change to github if i decide to make a FiveM server and publish these pages. -->
+            <br><br> Custom lua scripts: <a href="https://git.internal.kelsoncraft.net/kelson8/fivem-scripts"
+              target="_blank">Here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
+
+  <footer>
+    {% include "partials/footer.html" %}
+  </footer>
+
+  <script src="{{url_for('static', filename='client.js')}}"></script>
+  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
+  <script src="{{url_for('static', filename='passwordgen.js')}}"> </script>
+
+</body>
+
+</html>

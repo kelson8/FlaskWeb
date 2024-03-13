@@ -38,18 +38,3 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
 
 // https://stackoverflow.com/questions/63082529/how-to-properly-introduce-a-light-dark-mode-in-bootstrap
-// I wonder how to store this preference. Also I cannot figure out how to add this to the head.ejs for having
-// it in multiple files.
-document.getElementById('darkmodeBtn').addEventListener('click',()=>{
-    
-if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
-    document.documentElement.setAttribute('data-bs-theme','light');
-    localStorage.setItem("theme", "light");
-    $(".change").text(localStorage.getItem("theme"));
-      
-} else {
-        localStorage.setItem("theme", "dark");
-        document.documentElement.setAttribute('data-bs-theme','dark');
-        $(".change").text(localStorage.getItem("theme"));
-    }
-});
