@@ -4,6 +4,8 @@ This is the code for the kelsoncraft.net website which is running on Python Flas
 
 I have a dark mode toggle for the website, and I'm using bootstrap v5.
 
+Website Link: (https://kelsoncraft.net)
+
 ## Files:
 * Bootstrap is loaded in this file: [FlaskWeb/templates/head.html](https://git.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/templates/partials/header.html)
 * The navbar is in this file: [FlaskWeb/templates/header.html](https://git.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/templates/partials/header.html)
@@ -36,10 +38,7 @@ To run
 7. Run the Flask Project: waitress-serve --port \<port\> flask_web:app
 
 
-
-# Incomplete
-* I don't have docker setup yet for this.
-
+* With Docker:
 
 * Make sure to install docker, here is a link to the official download page: 
 * https://docs.docker.com/get-docker/
@@ -49,7 +48,7 @@ To run
 4. To start: docker-compose up -d
 
 # About
-This website will use docker once I set that up, I will have a custom docker-compose.yml and maybe a docker file.
+This website has docker support.
 
 I will be using mariadb for the website also, that won't run in a container.
 

@@ -1,15 +1,16 @@
 version: "3.9"
 services:
-  flask_test:
+  web:
     build: .
-    container_name: flask_test
+    container_name: web
     networks:
       - testing
     volumes:
       # - ./:/data
       - ./:/app
     ports:
-      - 8010:81
+#      - 8010:81
+      - "127.0.0.1:8010:81"
       # - 5000:5000
     restart: unless-stopped
     command: waitress-serve --port 81 flask_web:app
