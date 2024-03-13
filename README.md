@@ -31,11 +31,11 @@ To run
 * Linux:
 * Bash/zsh: source venv\Scripts\activate
 
-7. Run the Flask Project: 
-* Windows:
-* Terminal: python .\flask_web.py
-* Linux:
-* python3 flask_web.py
+6. Install the requirements: pip -r requirements.txt
+
+7. Run the Flask Project: waitress-serve --port \<port\> flask_web:app
+
+
 
 # Incomplete
 * I don't have docker setup yet for this.
@@ -52,4 +52,6 @@ To run
 This website will use docker once I set that up, I will have a custom docker-compose.yml and maybe a docker file.
 
 I will be using mariadb for the website also, that won't run in a container.
+
+This is running with the waitress WGSI Server.
 

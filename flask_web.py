@@ -107,5 +107,8 @@ def password_gen_page():
 # Path Like string but also accepts slashes.
 # UUID Accepts UUID strings
 
+# This now is supposed to be run with waitress installed like this:
+# waitress-serve --port 81 flask_web:app
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=81, debug=True)
+    pass
+    # app.run(host='0.0.0.0', port=81, debug=True)

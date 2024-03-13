@@ -24,3 +24,6 @@ htmlmin
 validators
 
 python-dotenv
+
+# WGSI Server
+waitress
