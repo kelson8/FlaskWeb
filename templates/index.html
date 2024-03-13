@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> KelsonCraft Website </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+
+        {% include "partials/head.html" %}
+
+    </head>
+
+    <body class="container">
+    <header>
+        <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
+        {% include "partials/header.html" %}
+    </header>
+
+    <main>
+        <div class="mt-4 p-5 bg-success text-white rounded">
+            <h1 id="main_header1"> Main Page </h1>
+            <p> Welcome to the KelsonCraft Flask website. </p>
+            <p> I will be hosting some projects here, possibly a WordPress and other random stuff that I may work on. </p>
+        </div>
+    </main>
+
+
+    <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
+
+    <footer>
+        {% include "partials/footer.html" %}
+    </footer>
+
+    <script src="{{url_for('static', filename='client.js')}}"></script>
+    <script src="{{url_for('static', filename='darkmode.js')}}"></script>
+    <script src="{{url_for('static', filename='passwordgen.js')}}"> </script>
+
+    </body>
+</html>

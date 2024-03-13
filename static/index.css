@@ -1,0 +1,46 @@
+#main_header1{
+    text-align: center;
+}
+
+header h1.headerIndex{
+	margin: auto;
+	/* margin: 0;*/
+	width: 50%;
+	font-size: 1.7em;
+	color: #fff; /* White */
+	/* color: #32a852;  Light Green */
+	/*text-transform: uppercase;*/
+	text-align: center;
+}
+
+div.p1 {
+	text-align: center;
+}
+
+div.p2 {
+	text-align: center;
+}
+
+/* Dark mode test */
+.change{
+	/* cursor: pointer; */
+	border: 1px solid #555;
+	border-radius: 40%;
+	width: 20px;
+	text-align: center;
+	padding: 5px;
+	margin-left: 8px
+}
+
+.dark{
+	background-color: #222;
+	color: #e6e6e6;
+}
+
+/* .darkmodeBtn {
+
+} */
+
+.mode {
+	float: right;
+}

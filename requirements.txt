@@ -1,0 +1,26 @@
+flask
+flask-cors
+# Probably switch this to using flask-MySQLdb and MySQLdb
+# To install mariadb: https://askubuntu.com/questions/1438002/mariadb-connector-c-is-not-installed
+# sudo apt install mariadb-client libmariadb3 libmariadb-dev
+Flask-SQLAlchemy
+
+# Encryption stuff
+cryptography
+rsa
+pycryptodome
+
+PyMySQL
+PyOpenSSL
+mariadb
+# This doesn't seem to be needed on linux.
+# secrets
+flask_login
+psutil
+gnupg
+# Html
+beautifulsoup4
+htmlmin
+validators
+
+python-dotenv
