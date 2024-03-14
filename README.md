@@ -7,14 +7,12 @@ I have a dark mode toggle for the website, and I'm using bootstrap v5.
 Website Link: (https://kelsoncraft.net)
 
 ## Files:
-* Bootstrap is loaded in this file: [FlaskWeb/templates/head.html](https://git.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/templates/partials/header.html)
-* The navbar is in this file: [FlaskWeb/templates/header.html](https://git.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/templates/partials/header.html)
-* The footer is in this file: [FlaskWeb/templates/footer.html](https://git.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/templates/partials/footer.html)
-* The dark mode javascript files, css, and other javascript files are here: [FlaskWeb/Static](https://git.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/static)
-* Example .env file: [FlaskWeb/.env.example](https://git.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/.env.example)
-* The html files are here: [FlaskWeb/templates](https://git.internal.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/templates)
-* The html files are here: [FlaskWeb/templates](https://git.internal.kelsoncraft.net/kelson8/FlaskWeb/src/branch/main/templates)
-
+* Bootstrap is loaded in this file: [FlaskWeb/templates/head.html](https://github.com/kelson8/FlaskWeb/blob/main/templates/partials/head.html)
+* The navbar is in this file: [FlaskWeb/templates/header.html](https://github.com/kelson8/FlaskWeb/blob/main/templates/partials/header.html)
+* The footer is in this file: [FlaskWeb/templates/footer.html](https://github.com/kelson8/FlaskWeb/blob/main/templates/partials/header.html)
+* The dark mode javascript files, css, and other javascript files are here: [FlaskWeb/Static](https://github.com/kelson8/FlaskWeb/tree/main/static)
+* Example .env file: [FlaskWeb/.env.example](https://github.com/kelson8/FlaskWeb/blob/main/.env.example)
+* The html files are here: [FlaskWeb/templates](https://github.com/kelson8/FlaskWeb/tree/main/templates)
 ## Setup
 To run
 * Without docker:
