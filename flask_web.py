@@ -9,6 +9,10 @@ from dotenv import load_dotenv
 from test_pages import simple_page
 from password_gen import password_gen
 
+###
+# Downloads page
+from downloads import downloads
+
 # Setup .env file for database password
 # https://stackoverflow.com/questions/41546883/what-is-the-use-of-python-dotenv
 dotenv_path = join(dirname(__file__), ".env")
@@ -36,6 +40,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # Split the app into multiple python files
 # https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files
 app.register_blueprint(simple_page)
+# Downloads page
+app.register_blueprint(downloads)
 
 app.secret_key= os.environ.get("SECRET_KEY")
 # Create the SQLAlchemy instance
@@ -113,6 +119,6 @@ def password_gen_page():
 
 # This now is supposed to be run with waitress installed like this:
 # waitress-serve --port 81 flask_web:app
+# I enabled app.run again for testing.
 if __name__ == '__main__':
-    pass
-    # app.run(host='0.0.0.0', port=81, debug=True)
+    app.run(host='0.0.0.0', port=8081, debug=True)

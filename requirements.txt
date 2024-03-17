@@ -28,3 +28,5 @@ python-dotenv
 
 # WGSI Server
 waitress
+
+requests
