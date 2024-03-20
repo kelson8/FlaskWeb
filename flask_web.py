@@ -98,6 +98,11 @@ def about_fivem_page():
 def about_mc_page():
     return render_template("about-mc.html")
 
+@app.route("/wiki")
+def wiki_page():
+    return redirect("https://wiki.kelsoncraft.net/", code=302)
+    # return render_template("about-mc.html")
+
 # ////////////////
 # End about pages
 # ////////////////
@@ -105,17 +110,6 @@ def about_mc_page():
 @app.route("/password_gen")
 def password_gen_page():
     return render_template("password_gen.html", passwords=password_gen(20))
-
-# @app.route("/db_test")
-# def db_test_page():
-#     return render_template("db_test.html", results=sql_results())
-
-# Types that can be used in the @app.route
-# String Text without a slash
-# Int Positive integers
-# Float Postive floating point values.
-# Path Like string but also accepts slashes.
-# UUID Accepts UUID strings
 
 # This now is supposed to be run with waitress installed like this:
 # waitress-serve --port 81 flask_web:app

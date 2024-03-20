@@ -9,10 +9,8 @@
 $(function() {
     $('#mybutton').on('click', async function(e) {
 
-        // I finally got the password outputting to the console!!!!
         // Combined this answer https://stackoverflow.com/a/12322162 with some other 
         // part from here: https://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_ajax_get
-        // This works perfectly for outputting the data to 
         $(document).ready(function() {
         $.ajax({
             url: "/passwordgen",
