@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+  <title> About FiveM </title>
   {% include "partials/head.html" %}
 </head>
 
@@ -14,30 +16,39 @@
   <main>
     <div class="row">
       <div class="col-sm-8">
-        <div class="jumbotron">
 
-          <h1>KelsonCraft FiveM server</h1>
+        <!-- Main header and info -->
+        <div class="mt-4 p-5 bg-secondary text-white rounded">
+          <h1 id="main_headers">KelsonCraft FiveM server</h1>
           <p class="fs-6">Hello, this page will have info about the FiveM server.</p>
           <p class="fs-6">
             I have been working with Scaleform UI and lua to make a couple of basic menus. And I have some
-            custom lua scripts.<br>
+            custom lua scripts. They are not on a public git repo yet. I still need to 
+            sort everything out, and make sure I don't have anything in the repo
+            history that I don't want public.<br>
           </p>
           <p class="fs-6">
             Custom content:
-            <br> Street races gui - Press F5 to open (Unloading races currently doesn't work.)
+            <br> This list is incomplete, I will update it in the future, for now I'm going to try to get the 
+            Fabric Minecraft server in a ready state.
+            <li> Street races gui - Press F5 to open </li>
+            This uses the street races resource from this github page (I only created the GUI for it.):
+            <a href="https://github.com/bepo13/FiveM-StreetRaces" target="_blank">https://github.com/bepo13/FiveM-StreetRaces</a>
 
           </p>
-        </div>
+          </div>
       </div>
 
+      <!-- Side bar -->
       <div class="col-sm-4">
         <div class="well">
 
           <p class="fs-6">
             <br> If I do decide to host a fivem server, it would be on <ins>play.kelsoncraft.net</ins>
-            (Default port 30110)
+            (Default port 30110) or on my local network, I don't think I can run the MC server and FiveM on the same host.
+            The MC server uses most of the resources on the host.
             <br><br> I have been working on creating some free roam scripts and adding onto others. Mostly
-            just something to fool around with.
+            just something to fool around with, such as car spawning, ped spawning and more.
             <br><br> Anyone is welcome to join, although with my 50mbps upload I will be limiting players to
             about 10-15.
             <!-- Change to github if i decide to make a FiveM server and publish these pages. -->

@@ -1,4 +1,9 @@
-#main_header1{
+/* 
+ Main css file, this one is used on the index and most of the site besides
+ the about pages.
+*/
+
+#main_headers{
     text-align: center;
 }
 
@@ -21,7 +26,7 @@ div.p2 {
 	text-align: center;
 }
 
-/* Dark mode test */
+/* Dark mode button customizations */
 .change{
 	/* cursor: pointer; */
 	border: 1px solid #555;
@@ -36,10 +41,6 @@ div.p2 {
 	background-color: #222;
 	color: #e6e6e6;
 }
-
-/* .darkmodeBtn {
-
-} */
 
 .mode {
 	float: right;

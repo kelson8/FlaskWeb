@@ -31,7 +31,7 @@ To run
 * Linux:
 * Bash/zsh: source venv\Scripts\activate
 
-6. Install the requirements: pip -r requirements.txt
+6. Install the requirements: pip install -r requirements.txt
 
 7. Run the Flask Project: waitress-serve --port \<port\> flask_web:app
 

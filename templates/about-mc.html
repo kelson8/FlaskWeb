@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+  <title> About MC </title>
   {% include "partials/head.html" %}
 </head>
 
@@ -14,34 +16,39 @@
   <main>
     <div class="row">
       <div class="col-sm-8">
-        <div class="jumbotron">
-          <h1>KelsonCraft Minecraft server</h1>
-          <p class="col-md-8 fs-4"> Hello, this page will have info about the mc server on the sidebar.</p>
+        <div class="mt-4 p-5 bg-secondary text-white rounded">
+          <h1 id="main_headers">KelsonCraft MC Servers</h1>
+          <p> 
+            Hello, this page will have info about the mc servers on the sidebar.</p>
+          <li> Fabric server ip: play.kelsoncraft.net:25564</li>
+          </p>
         </div>
       </div>
 
       <div class="col-sm-4">
         <div class="well">
 
+          <!-- Side bar -->
           <p class="fs-6">
-            <br> The minecraft server is going to be hosted at <ins>play.kelsoncraft.net</ins> with the
-            default port (25565),
-            it will be a hub server so there will be multiple destinations you can go to, such as Creative
-            (Plot world), and Survival (Normal world).
+            <br> The Minecraft Fabric server is going to be hosted at <ins>play.kelsoncraft.net</ins> with the
+            port 25564
+            <br> 
+            It can be joined by using "play.kelsoncraft.net:25564" in the tekkit client.
             <br><br>
-
             I will <ins>never</ins> add any kind of Pay to win aspects, anything in this server can be
             obtained just by playing on it!
-            You are welcome to donate once I get that setup but it's entirely optional, it would help with
-            buying a host in the future.
-
+            You are welcome to donate once I get that setup but it's entirely optional, it would help with keeping
+            the website and game server online.
             <br><br>
-            I will be hosting a fabric server on <ins>play.kelsoncraft.net:25564</ins> which will
-            contain the KelsonCraft 1.20 Fabric pack, I'm not sure when I'll have it up and running.
+            I will be hosting a vanilla/spigot server on <ins>play.kelsoncraft.net:25565</ins> which will
+            contain a Survival with an optional plot world or a world which can
+            have land claimed using a golden shovel, and a Creative with plots I'm not sure when I'll have it up and running.
+          </p>
           </p>
         </div>
       </div>
     </div>
+
   </main>
 
   <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
