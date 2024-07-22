@@ -1,4 +1,9 @@
-from flask import Flask, url_for, request, render_template, jsonify, redirect
+# Logger
+import logging
+# Time for logging
+from time import strftime
+
+from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response
 from flask_cors import CORS, cross_origin
 
 # import pymysql
@@ -12,6 +17,8 @@ from password_gen import password_gen
 ###
 # Downloads page
 from downloads import downloads
+
+
 
 # Setup .env file for database password
 # https://stackoverflow.com/questions/41546883/what-is-the-use-of-python-dotenv
@@ -52,6 +59,14 @@ app.secret_key= os.environ.get("SECRET_KEY")
 # db = SQLAlchemy(app)
 # db = pymysql.connect(host=database_host, user=database_username, password=database_password, database=database_name)
 
+
+# Setup logging
+# https://github.com/google/openhtf/issues/46
+# https://stackoverflow.com/questions/6386698/how-to-write-to-a-file-using-the-logging-python-module
+log_file = "flask.log"
+logging.basicConfig(filename=log_file, filemode='a')
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 # # https://stackoverflow.com/questions/14343812/redirecting-to-url-in-flask
 
@@ -98,10 +113,53 @@ def about_fivem_page():
 def about_mc_page():
     return render_template("about-mc.html")
 
+# I haven't set these two up yet.
+# Minecraft server image page
+# @app.route("/mc-photos")
+# def mc_photos_page():
+#     return render_template("mc-photos.html")
+#
+# @app.route("/about-code")
+# def about_code_page():
+#     return render_template("about-code.html")
 @app.route("/wiki")
 def wiki_page():
     return redirect("https://wiki.kelsoncraft.net/", code=302)
     # return render_template("about-mc.html")
+
+# Forum test, enable domain when ready to make public.
+# Todo Setup this forum later.
+# @app.route("/forum")
+# def forum_page():
+#     return redirect("https://forum.kelsoncraft.net/")
+
+# https://stackoverflow.com/questions/52372187/logging-with-command-line-waitress-serve
+# https://flask.palletsprojects.com/en/2.3.x/logging/
+# Test
+# This seems to log everything with errors
+@app.after_request
+def after_request(response):
+
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+
+    # This gets the response without the message, strips the 'OK' or other messages
+    string_response = str.split(response.status)[0]
+
+    # Ok or not modified
+    # if response.status == 200 or response.status == 304:
+    if string_response == "200" or string_response == "304":
+        # print("Hello")
+        logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
+                    request.full_path, response.status)
+    else:
+        logger.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
+                     request.full_path, response.status)
+        # print(string_response)
+        # print(str.split(response.status)[0])
+
+    # else:
+    #     logger.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
 
 # ////////////////
 # End about pages
@@ -110,6 +168,19 @@ def wiki_page():
 @app.route("/password_gen")
 def password_gen_page():
     return render_template("password_gen.html", passwords=password_gen(20))
+
+#////////////////
+# Test pages
+#////////////////
+# This one isn't ready to be published yet
+# @app.route("/fivem_test")
+# @cross_origin()
+# def fivem_test_page():
+#     return render_template("fivem-test.html")
+
+# ////////////////
+# End test pages
+# ////////////////
 
 # This now is supposed to be run with waitress installed like this:
 # waitress-serve --port 81 flask_web:app
