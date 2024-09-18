@@ -14,8 +14,8 @@ services:
       # - 5000:5000
     restart: unless-stopped
     command: waitress-serve --port 81 flask_web:app
-    depends_on:
-      - mariadb_flask
+#    depends_on:
+#      - mariadb_flask
 
   # Disabled mariadb database until I'm ready to use it.
   #mariadb_flask:
