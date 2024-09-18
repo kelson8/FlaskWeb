@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> KelsonCraft Website </title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+
+  {% include "partials/head.html" %}
+
+</head>
+
+<body class="container">
+  <header>
+    <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
+    {% include "partials/header.html" %}
+<!--    </nav>-->
+  </header>
+
+  <main>
+    <div class="mt-4 p-5 bg-secondary text-white rounded">
+      <h1 id="main_header1"> Videos </h1>
+      <p> Tom Clancy's Ghost Recon Wildlands Chopper glitch </p>
+      <p> I'm not sure how I would do this again, it just randomly happened one day. </p>
+        <video controls width="640" height="480"
+                src="{{ url_for('static', filename='/videos/tom_clancy_wildlands_glitch1.mp4') }}" >
+
+        </video>
+
+
+    </div>
+  </main>
+
+  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
+
+  <footer>
+    {% include "partials/footer.html" %}
+  </footer>
+
+  <script src="{{url_for('static', filename='client.js')}}"></script>
+  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
+  <!-- <script src="{{url_for('static', filename='passwordgen.js')}}"> </script> -->
+
+</body>
+
+</html>

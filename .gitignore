@@ -5,8 +5,14 @@ config/
 # Downloads folder
 downloads/
 
+# Video folder
+static/videos
+
 # Backup folders
 templates/backups
+# Test files
+templates/fivem-test.html
+templates/var_test.html
 
 # ---> Python
 # Byte-compiled / optimized / DLL files
