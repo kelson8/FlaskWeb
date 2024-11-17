@@ -18,7 +18,7 @@ from password_gen import password_gen
 # Downloads page
 from downloads import downloads
 # Form test page
-from form_test import form_test
+#from form_test import form_test
 
 # TODO Look into this later: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
 
@@ -53,7 +53,7 @@ app.register_blueprint(simple_page)
 # Downloads page
 app.register_blueprint(downloads)
 # Form test page
-app.register_blueprint(form_test)
+#app.register_blueprint(form_test)
 
 app.secret_key= os.environ.get("SECRET_KEY")
 # Create the SQLAlchemy instance
