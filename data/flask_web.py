@@ -22,6 +22,8 @@ from downloads import downloads
 
 # TODO Look into this later: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
 
+# Disable the password generator for now.
+passwordGenEnabled = False
 
 # Setup .env file for database password
 # https://stackoverflow.com/questions/41546883/what-is-the-use-of-python-dotenv
@@ -141,12 +143,13 @@ if logEnabled:
 
 @app.route("/")
 def index():
+    return render_template("index.html")
     # return render_template("index.html", password=password_gen(20))
-    return render_template("index.html", password=password_gen(20))
 
-@app.route("/passwordgen")
-def password_gen_test():
-    return password_gen(20)
+if passwordGenEnabled:
+    @app.route("/passwordgen")
+    def password_gen_test():
+        return password_gen(20)
 
 # Todo Figure out how to get values out of a database using this.
 # @app.route("/var_test", methods = ['GET'])
@@ -224,9 +227,10 @@ def video1_page():
 # End video pages
 # ////////////////
 
-@app.route("/password_gen")
-def password_gen_page():
-    return render_template("password_gen.html", passwords=password_gen(20))
+if passwordGenEnabled:
+    @app.route("/password_gen")
+    def password_gen_page():
+        return render_template("password_gen.html", passwords=password_gen(20))
 
 #////////////////
 # Test pages
