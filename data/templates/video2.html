@@ -10,9 +10,6 @@
 
 </head>
 
-
-<!-- TODO Add bootstrap to page -->
-
 <body class="container">
   <header>
     <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
@@ -23,8 +20,13 @@
   <main>
     <div class="mt-4 p-5 bg-secondary text-white rounded">
       <h1 id="main_header1"> Videos </h1>
-      <p> Welcome to the video page, I will disable this if I get close to my 1TB monthly bandwidth cap for my vps. </p>
-        <a href="/video1">Tom Clancy's Ghost Recon Wildlands chopper glitch</a>
+      <p> ReVC Spinning Cars </p>
+      <p> I coded this function using C++ to mess around with, the game crashes at the end. </p>
+      <!-- TODO Make this mobile optimizied. -->
+      <video controls width="640" height="480"
+                src="{{ url_for('static', filename='/videos/ReVC-SpinningCars.mp4') }}" >
+
+        </video>
 
 
     </div>
