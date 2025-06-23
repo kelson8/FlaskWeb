@@ -4,7 +4,7 @@
 <head>
   <title> About FiveM </title>
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   {% include "partials/head.html" %}
 </head>
 
@@ -16,49 +16,105 @@
 
   <main>
     <div class="row">
-      <div class="col-sm-8">
+      <!-- Added spacing for this column from here: https://stackoverflow.com/questions/42528411/center-the-content-inside-a-column-in-bootstrap -->
+      <div class="col-sm-10 mx-auto">
 
         <!-- Main header and info -->
         <div class="mt-4 p-5 bg-secondary text-white rounded">
-          <h1 id="main_headers">KelsonCraft FiveM server</h1>
-          <p class="fs-6">Hello, this page will have info about the FiveM server.</p>
+          <h1 class="main_headers">KelsonCraft FiveM Info</h1>
+          <p class="fs-6">Hello, this page will have info about the possible future FiveM server.
+          <br>
+            And the resources/mods that I work on for FiveM.
+          </p>
+
+
           <p class="fs-6">
             I have been working with Scaleform UI and lua to make a couple of basic menus. And I have some
-            custom lua scripts. They are not on a public git repo yet. I still need to 
-            sort everything out, and make sure I don't have anything in the repo
-            history that I don't want public.<br>
+            custom lua scripts.<br>
           </p>
           <p class="fs-6">
-            Custom content:
-            <br> This list is incomplete, I will update it in the future, for now I'm going to try to get the 
-            Forge Minecraft server in a ready state.
-            <li> Street races gui - Press F5 to open </li>
-            This uses the street races resource from this github page (I only created the GUI for it.):
-            <a href="https://github.com/bepo13/FiveM-StreetRaces" target="_blank">https://github.com/bepo13/FiveM-StreetRaces</a>
+            Custom/modified resources:
+            <br>
+            This list is incomplete, I will add more of my projects to it later.
 
-          </p>
+            </p>
+
+          <br>
+            <!-- Other forks and projects that I work on -->
+            <h3 class="main_headers">Forks and other open source resources </h3>
+          <div class="margin_spacing">
+
+
+            <ul class="spaced_margins">
+              <li>
+                Street races gui from <a href="https://github.com/bepo13/">bepo13</a>, press F5 to open
+                <br>
+                This uses the street races resource from the above author (I only created the GUI for it.):
+                <br>
+                <a href="https://github.com/kelson8/FiveM-StreetRaces" target="_blank">https://github.com/kelson8/FiveM-StreetRaces</a>
+              </li>
+
+              <li>
+                bMenu from <a href="https://github.com/BerkieBb">BerkieBb</a>
+                - A lua version of bMenu, I have been learning how to use ox_lib with this project.
+                <br>
+                <a href="https://github.com/kelson8/bMenu">https://github.com/kelson8/bMenu</a>
+
+              </li>
+
+              <li>
+                Venomous Freemode from <a href="https://github.com/FiveM-Scripts">FiveM-Scripts</a>
+                <br>
+                <a href="https://github.com/kelson8/venomous-freemode">https://github.com/kelson8/venomous-freemode</a>
+              </li>
+
+              <li>
+                dxn-tpmenu from <a href="https://github.com/devoplx">devoplx</a>
+                <br>
+
+                <a href="https://github.com/kelson8/dxn-tpmenu">https://github.com/kelson8/dxn-tpmenu</a>
+              </li>
+
+              <li>
+                rgz_playedtime from <a href="https://github.com/Adam-rGz">Adam-rGz</a>
+                <br>
+                <a href="https://github.com/kelson8/rgz_playedtime">https://github.com/kelson8/rgz_playedtime</a>
+              </li>
+
+              <li>
+                Custom loading screen for my server, from <a href="https://github.com/raitnigol">raitnigol</a>
+                <br>
+                <a href="https://github.com/kelson8/fivem_loadingscreen">https://github.com/kelson8/fivem_loadingscreen</a>
+              </li>
+
+              <li>
+                TrainSportation from <a href="https://github.com/LexTheGreat">LexTheGreat</a>
+                <br>
+                <a href="https://github.com/kelson8/TrainSportation">https://github.com/kelson8/TrainSportation</a>
+              </li>
+            </ul>
+
+            </div>
+
+          <br>
+          <!-- Custom resources -->
+          <h3 class="main_headers">My custom resources</h3>
+            <ul>
+              <li>
+                My Menu written in Lua, which uses ox_lib
+                  <br>
+                  <a href="https://github.com/kelson8/kc_menu">https://github.com/kelson8/kc_menu</a>
+              </li>
+
+              <li>
+                My main fivem resources
+                <br>
+                <a href="https://github.com/kelson8/fivem-scripts">https://github.com/kelson8/fivem-scripts</a>
+              </li>
+
+            </ul>
+
           </div>
-      </div>
-
-      <!-- Side bar -->
-      <div class="col-sm-4">
-        <div class="well">
-
-          <p class="fs-6">
-            <br> If I do decide to host a fivem server, it would be on <ins>play.kelsoncraft.net</ins>
-            (Default port 30110) or on my local network, I don't think I can run the MC server and FiveM on the same host.
-            The MC server uses most of the resources on the host.
-            <br><br> I have been working on creating some free roam scripts and adding onto others. Mostly
-            just something to fool around with, such as car spawning, ped spawning and more.
-            <br><br> Anyone is welcome to join, although with my 50mbps upload I will be limiting players to
-            about 10-15.
-            <!-- Change to github if i decide to make a FiveM server and publish these pages. -->
-            <br><br> Custom lua scripts: Coming soon! I need to set up the repo for this on GitHub or on the git server I will host.
-            <!-- <a href="https://git.kelsoncraft.net/kelson8/fivem-scripts"
-            <a href="https://github.com/kelson8/fivem-scripts"
-              target="_blank">Here</a> -->
-          </p>
-        </div>
       </div>
     </div>
   </main>

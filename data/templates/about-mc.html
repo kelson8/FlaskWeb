@@ -4,7 +4,7 @@
 <head>
   <title> About MC </title>
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   {% include "partials/head.html" %}
 </head>
 
@@ -16,63 +16,63 @@
 
   <main>
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-10 mx-auto">
         <div class="mt-4 p-5 bg-secondary text-white rounded">
-          <h1 id="main_headers"> KelsonCraft Forge Server </h1>
-          <p> 
-            Hello, this page will have info about the Forge server on the sidebar.
-            I will update the wiki for the minecraft server to include what all mods I have in the forge pack later.
-            For now I won't be hosting a vanilla/spigot server I have decided to only host a modded forge server on the host. </p>
+          <h1 class="main_headers"> KelsonCraft Forge Mod Pack </h1>
+          <p>
+            Hello, this page will have info about the Forge mod pack.
+            <br>
+            I will update the wiki for the minecraft server to include what all mods I have in the forge pack later.</p>
 
-            <h1 id="main_headers"> Some mods in the pack </h1>
+            <h1 class="main_headers"> Some mods in the pack </h1>
 
               <p>
               <br>
               I have Mekanism, Thermal Expansion, Enderio and a ton of other cool mods.
+                <br>
               The links to the mods and the mod list will be in the wiki once I get it setup.
               <!-- Todo Setup mod list on the wiki -->
               <!-- <a href=""> Mod list </a>. -->
-              
+
               <br>
               </p>
 
-              <h1 id="main_headers"> Technical details below </h1>
-              <p>
-              The forge server uses computer craft and I have been learning how to interface with the computers in the pack.
+              <h1 class="main_headers"> Technical details below </h1>
+              <p> The forge modpack that I have uses Computer Craft and I have been learning how to interface with the computers in the pack. </p>
+                <p>
                 I use <a href="https://www.curseforge.com/minecraft/mc-mods/kubejs">KubeJS</a> for stuff like making new recipes,
-                and quite a bit of scripting features for the server so I can customize the KelsonCraft server to my liking and 
+                and quite a bit of scripting features for the serve. <br>
+                  So I can customize the KelsonCraft server to my liking and
                 try to add what is requested.
-            </p>
+                  </p>
+
+              <h1 class="main_headers"> About server </h1>
+                  <p>
+                     I changed my mind about the servers.
+            I will not be hosting a MineCraft server in the near future.
+                    <br>
+                    I probably won't even host a FiveM one, not sure on that yet.
+                    </p>
+
             <br>
-          <!-- <li> Fabric server ip: play.kelsoncraft.net:25564</li> -->
-          <li> Forge server ip: play.kelsoncraft.net (Default port 25565)</li>
-          </p>
         </div>
       </div>
 
-      <div class="col-sm-4">
-        <div class="well">
+<!--      <div class="col-sm-4">-->
+<!--        <div class="well">-->
 
-          <!-- Side bar -->
-          <p class="fs-6"> 
-           <br>
-           I changed my mind about the servers, I will only be mantaining a modded forge server on
-           <ins> play.kelsoncraft.net </ins> with the default port 25565.
-           It can be joined by using "play.kelsoncraft.net" with the KelsonCraft 1.20 Forge Pack on tekkit.
-           <br><br>
-           I will <ins>never</ins> add any kind of Pay to win aspects, anything in this server can be
-           obtained just by playing on it!
-           You are welcome to donate once I get that setup but it's entirely optional, it would help with keeping
-           the website and game server online.
-           <br><br>
+<!--          &lt;!&ndash; Side bar &ndash;&gt;-->
+<!--          <p class="fs-6"> -->
+<!--           <br>-->
 
-          </p>
-        </div>
-      </div>
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
 
   </main>
 
+  <br>
   <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
 
   <footer>

@@ -3,8 +3,24 @@
  the about pages.
 */
 
-#main_headers{
+.main_headers{
     text-align: center;
+}
+
+/*
+.li {
+    margin-bottom: 10px;
+}
+*/
+
+ul.spaced_margins {
+  display: flex;
+  flex-direction: column; /* To make the list vertical */
+  gap: 10px; /* Adds 10 pixels of space between the list items */
+}
+
+.sidebar_paragraph{
+    font-size: 20px;
 }
 
 header h1.headerIndex{
@@ -33,7 +49,7 @@ div.p2 {
 	border-radius: 40%;
 	width: 20px;
 	text-align: center;
-	padding: 5px;
+	padding: 2px;
 	margin-left: 8px
 }
 
