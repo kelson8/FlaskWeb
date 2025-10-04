@@ -152,6 +152,21 @@ if passwordGenEnabled:
         return password_gen(20)
 
 #-----------------
+# Error pages
+#-----------------
+@app.errorhandler(404)
+
+# 404 not found
+def not_found(error):
+    return render_template("errors/404.html")
+
+# 403 access denied
+@app.errorhandler(403)
+def access_denied(error):
+    return render_template("errors/403.html")
+
+
+#-----------------
 # About pages
 #-----------------
 

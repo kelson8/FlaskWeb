@@ -2,12 +2,9 @@
 <html>
 
 <head>
-  <title> KelsonCraft Website </title>
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-
+  <title> KelsonCraft Website </title>
   {% include "partials/head.html" %}
-
 </head>
 
 <body class="container">
@@ -17,17 +14,12 @@
   </header>
 
   <main>
-    <div class="mt-4 p-5 bg-secondary text-white rounded">
-      <h1 class="main_headers"> Videos </h1>
-      <p> Tom Clancy's Ghost Recon Wildlands Chopper glitch </p>
-      <p> I'm not sure how I would do this again, it just randomly happened one day. </p>
-      <!-- TODO Make this mobile optimizied. -->
-      <video controls width="640" height="480"
-                src="{{ url_for('static', filename='/videos/tom_clancy_wildlands_glitch1.mp4') }}" >
-
-        </video>
-
-
+    <!-- <div class="mt-4 p-5 bg-success text-white rounded"> -->
+      <div class="mt-4 p-5 bg-secondary text-white rounded">
+      <h1 class="main_headers" style="text-align:center;"> Error 403: </h1>
+      <p class="test1" style="text-align:center;"> Access forbidden to resource.
+      <br>
+        Click <a href="https://kelsoncraft.net">Here</a> to get back to the main page.</p>
     </div>
   </main>
 
@@ -39,7 +31,6 @@
 
   <script src="{{url_for('static', filename='client.js')}}"></script>
   <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-  <!-- <script src="{{url_for('static', filename='passwordgen.js')}}"> </script> -->
 
 </body>
 

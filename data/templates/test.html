@@ -14,7 +14,6 @@
   <header>
     <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
     {% include "partials/header.html" %}
-    </nav>
   </header>
 
   <main>
@@ -27,11 +26,25 @@
       <!-- https://stackoverflow.com/questions/3676127/how-do-i-make-a-text-input-non-editable -->
       <input type="text" value="Readonly Input" class="field left" readonly>
 
-    </div>
-    </div>
-  </main>
+      <h3 class="main_headers">Your public IP address is:</h3>
+      <p id="ip-address"></p>
 
-  </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("https://api.ipify.org/?format=json")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("ip-address").textContent = data.ip;
+                })
+                .catch(error => {
+                    console.error("Error fetching IP address:", error);
+                });
+        });
+    </script>
+
+    </div>
+
+  </main>
 
   <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
 

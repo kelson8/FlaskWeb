@@ -18,3 +18,7 @@ simple_page = Blueprint('simple_page', __name__, template_folder='templates')
 # @app.route("/test", methods=['GET'])
 # def test_page():
 #     return render_template("test.html")
+
+@simple_page.route("/test")
+def test_page():
+     return render_template("test.html")

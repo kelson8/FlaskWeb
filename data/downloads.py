@@ -7,7 +7,12 @@ downloads = Blueprint('downloads', __name__, template_folder='templates')
 # https://docs.faculty.ai/user-guide/apis/flask_apis/flask_file_upload_download.html
 
 # This seems to work fine for docker, I don't think the other one is needed
-upload_directory = "./downloads/"
+# upload_directory = "./downloads/"
+upload_directory = "/downloads/"
+
+# New for docker volume, SWITCH BACK!!!
+# upload_directory = "/mnt/docker_volume/flask_downloads"
+
 # Not tested.
 upload_directory_docker = "/app/downloads"
 

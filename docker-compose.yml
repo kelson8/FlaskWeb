@@ -7,6 +7,8 @@ services:
     volumes:
       # - ./:/data
       - ./data:/app
+      # Added new download directory
+      - /mnt/docker_volume/flask_downloads:/downloads
     ports:
 #      - 8010:81
       - "127.0.0.1:8010:81"
