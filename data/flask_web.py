@@ -1,4 +1,5 @@
 # Logger
+import datetime
 import logging
 # Time for logging
 from time import strftime
@@ -18,6 +19,9 @@ from password_gen import password_gen
 from downloads import downloads
 # Form test page
 #from form_test import form_test
+
+import logging
+from logging.handlers import TimedRotatingFileHandler
 
 # TODO Look into this later: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
 
@@ -76,21 +80,23 @@ app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
 ###
 #-----------------
 # This toggles the logging to file on and off, useful for debugging without writing to the logs.
+# TODO Test new log format, this should rotate the logs and remove old ones.
 #-----------------
+
 logEnabled = True
 if logEnabled:
-    log_file = "flask.log"
-    logging.basicConfig(filename=log_file, filemode='a')
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
+    # Create a handler that rotates logs at midnight
+    handler = TimedRotatingFileHandler("flask.log", when='midnight', interval=1, backupCount=7)
 
-#-----------------
-# Add favicon route
-#-----------------
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    # Set the format for the log messages
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+
+    # Get the logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)  # Set the logging level to INFO
+    logger.addHandler(handler)  # Add the handler to the logger
+
 
 #-----------------
 # Logging
@@ -116,24 +122,23 @@ if logEnabled:
         string_response = str.split(response.status)[0]
 
         # Ok or not modified
-        # if response.status == 200 or response.status == 304:
         if string_response == "200" or string_response == "304":
-            # print("Hello")
             logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
                         request.full_path, response.status)
         else:
             logger.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
                          request.full_path, response.status)
-            # print(string_response)
-            # print(str.split(response.status)[0])
-
-        # else:
-        #     logger.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
         return response
 
 #-----------------
 
-
+#-----------------
+# Add favicon route
+#-----------------
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 #-----------------
 # Pages
@@ -199,7 +204,6 @@ def about_mc_page():
 @app.route("/wiki")
 def wiki_page():
     return redirect("https://wiki.kelsoncraft.net/", code=302)
-    # return render_template("about-mc.html")
 
 # Forum test, enable domain when ready to make public.
 # Todo Setup this forum later.
@@ -258,14 +262,14 @@ def revc_projects_page():
 # End Game/ReVC pages
 #-----------------
 
+#-----------------
+# Test pages
+#-----------------
 if passwordGenEnabled:
     @app.route("/password_gen")
     def password_gen_page():
         return render_template("password_gen.html", passwords=password_gen(20))
 
-#-----------------
-# Test pages
-#-----------------
 # This one isn't ready to be published yet
 # @app.route("/fivem_test")
 # @cross_origin()
