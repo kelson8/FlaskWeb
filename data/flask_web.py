@@ -4,7 +4,7 @@ import logging
 # Time for logging
 from time import strftime
 
-from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response
+from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response, send_file
 from flask_cors import CORS, cross_origin
 
 import os
@@ -27,6 +27,9 @@ from logging.handlers import TimedRotatingFileHandler
 
 # Disable the password generator for now.
 passwordGenEnabled = False
+
+# Toggle logging on/off here, if off it redirects log output to the console in PyCharm.
+logEnabled = True
 
 # Setup .env file for database password
 # https://stackoverflow.com/questions/41546883/what-is-the-use-of-python-dotenv
@@ -83,7 +86,7 @@ app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
 # TODO Test new log format, this should rotate the logs and remove old ones.
 #-----------------
 
-logEnabled = True
+
 if logEnabled:
     # Create a handler that rotates logs at midnight
     handler = TimedRotatingFileHandler("flask.log", when='midnight', interval=1, backupCount=7)
@@ -155,6 +158,37 @@ if passwordGenEnabled:
     @app.route("/passwordgen")
     def password_gen_test():
         return password_gen(20)
+
+#-----------------
+# Display custom files in browser
+#-----------------
+
+# Display .sh files in browser instead of just downloading them.
+@app.route('/download/scripts/<path:filename>')
+def serve_script(filename):
+    # Define the directory where .sh files are stored
+    # Local desktop test
+    scripts_dir = '/downloads/scripts/'
+
+    # Construct the full path to the script file
+    file_path = os.path.join(scripts_dir, filename)
+
+    # Check if the file exists
+    if os.path.isfile(file_path):
+        # Log the IP address accessing the file
+        client_ip = request.remote_addr
+        if logEnabled:
+            logging.info(f"Access attempt: {client_ip} requested {file_path}")
+
+        return send_file(file_path, mimetype='text/plain', as_attachment=False)
+    else:
+        # Log an error message and return a 404 if the file does not exist
+        # app.logger.error(f"File not found: {file_path}")
+        if logEnabled:
+            logger.error('%s is not a file', filename)
+        # print(f"Trying to serve file: {file_path}")
+        # return send_file(file_path, mimetype='text/plain')
+##
 
 #-----------------
 # Error pages
