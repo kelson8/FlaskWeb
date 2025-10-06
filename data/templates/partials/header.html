@@ -1,39 +1,44 @@
-<!-- Todo Make this look better on mobile. -->
+
+<!-- I have made this header more optimized for mobile devices, tested on my phone. -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">KelsonCraft</a>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/wiki">Wiki</a>
-      </li>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/wiki">Wiki</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/videos">Videos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/projects">Projects</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+    <!-- Old navbar items -->
       <!-- <li class="nav-item">
         <a class="nav-link" href="/password_gen">Password Generator</a>
       </li> -->
 
-      <li class="nav-item">
-        <a class="nav-link" href="/videos">Videos</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/projects">Projects</a>
-      </li>
-
-      <!-- TODO Fix gitea server and upload my code to it, this is disabled for now until I fix it up.  -->
+      <!-- TODO Setup this later.  -->
 <!--      <li class="nav-item">-->
 <!--        <a class="nav-link" href="/about-code">Code Links</a>-->
 <!--      </li>-->
 
-        <!-- Todo Disable this when I commit changes. -->
-<!--      <li class="nav-item">-->
-<!--        <a class="nav-link" href="/var_test">Var Test</a>-->
-<!--      </li>-->
-    </ul>
-</nav>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="/password_gen">Password Generator</a>
+      </li> -->
 
 <!-- This adds a second navbar, could be useful for testing. -->
 <!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
