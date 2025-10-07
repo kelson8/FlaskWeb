@@ -326,11 +326,14 @@ if passwordGenEnabled:
 #     response = requests.get('https://api.ipify.org/?format=json', headers={'Authorization': f'Bearer {api_key}'})
 #     return Response(response.content, mimetype='application/json')
 
-# @app.route('/proxy-ip')
-# def proxy_ip():
-#     """Proxy endpoint for IP address retrieval."""
-#     response = requests.get('https://api.ipify.org/?format=json')
-#     return Response(response.content, mimetype='application/json')
+# Switched to using Cloudflare headers.
+@app.route('/proxy-ip')
+def proxy_ip():
+    """Get the client's IP address."""
+    # Fetch the original IP address from Cloudflare headers
+    ip_address = request.headers.get('CF-Connecting-IP') or request.remote_addr
+
+    return {'ip': ip_address}
 
 # This one isn't ready to be published yet
 # @app.route("/fivem_test")
