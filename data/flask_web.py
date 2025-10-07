@@ -4,7 +4,9 @@ import logging
 # Time for logging
 from time import strftime
 
-from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response, send_file
+import requests
+from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response, send_file, \
+    send_from_directory, Response, abort
 from flask_cors import CORS, cross_origin
 
 import os
@@ -51,7 +53,7 @@ app.register_blueprint(downloads)
 # Form test page
 #app.register_blueprint(form_test)
 
-app.secret_key= os.environ.get("SECRET_KEY")
+app.secret_key = os.environ.get("SECRET_KEY")
 
 # Setup logging
 # https://github.com/google/openhtf/issues/46
@@ -303,6 +305,32 @@ if passwordGenEnabled:
     @app.route("/password_gen")
     def password_gen_page():
         return render_template("password_gen.html", passwords=password_gen(20))
+
+
+# TODO Possibly look into setting up API keys for certain endpoints.
+# @app.before_request
+# def check_authentication():
+#     # Only check authentication for the specified endpoint
+#     if request.endpoint == 'proxy_ip':
+#         # Fetch the API key from request headers
+#         api_key = request.headers.get('x-api-key')
+#
+#         # Check against the stored API key
+#         if api_key != os.environ.get("IP_API_KEY"):
+#             abort(403)  # Forbidden
+
+# @app.route('/proxy-ip')
+# def proxy_ip():
+#     """Proxy endpoint for IP address retrieval."""
+#     api_key = os.environ.get("IP_API_KEY")  # Fetch from environment variable
+#     response = requests.get('https://api.ipify.org/?format=json', headers={'Authorization': f'Bearer {api_key}'})
+#     return Response(response.content, mimetype='application/json')
+
+@app.route('/proxy-ip')
+def proxy_ip():
+    """Proxy endpoint for IP address retrieval."""
+    response = requests.get('https://api.ipify.org/?format=json')
+    return Response(response.content, mimetype='application/json')
 
 # This one isn't ready to be published yet
 # @app.route("/fivem_test")
