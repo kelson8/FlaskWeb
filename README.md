@@ -15,9 +15,9 @@ Website Link: (https://kelsoncraft.net)
 * The html files are here: [FlaskWeb/data/templates](https://github.com/kelson8/FlaskWeb/tree/main/data/templates)
 
 * JQuery and CSS are here: [FlaskWeb/data/templates/head.html](https://github.com/kelson8/FlaskWeb/blob/main/data/templates/partials/head.html)
-## Setup
-To run
-* Without docker:
+
+## Running the website
+## Run without docker
 * Make sure to have python installed, here is a link to the official website: 
 * https://www.python.org/downloads/
 1. Rename the .env.example to .env.
@@ -25,20 +25,23 @@ To run
 3. Create a virutal environment for your system using the below link: https://docs.python.org/3/library/venv.html
 4. python -m venv venv
 5. Source the venv:
-* Windows:
+
+Windows:
 
 * Cmd: venv\Scripts\activate.bat
 * Powershell: venv\Scripts\Activate.ps1
 
-* Linux:
+Linux:
 * Bash/zsh: source venv\Scripts\activate
 
 6. Install the requirements: pip install -r requirements.txt
 
 7. Run the Flask Project: waitress-serve --port \<port\> flask_web:app
 
+For testing locally or developing this site, run like this:
+* data/flask_web.py - flask --app flask_web run
 
-* With Docker:
+## Run with docker
 
 * Make sure to install docker, here is a link to the official download page: 
 * https://docs.docker.com/get-docker/
@@ -50,10 +53,11 @@ To run
 # About
 This website has docker support.
 
-I will be using mariadb for the website also, that won't run in a container.
+I may use mariadb for the website also in the future.
 
 This is running with the waitress WGSI Server.
+For testing, it can be started directly with the `app.run` in `data/flask_web.py`
 
 # License
-This Flask project is licensed under the GPLV3 license.
+This Flask project is licensed under the GPLv3 license.
 
