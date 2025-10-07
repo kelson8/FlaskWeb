@@ -326,11 +326,11 @@ if passwordGenEnabled:
 #     response = requests.get('https://api.ipify.org/?format=json', headers={'Authorization': f'Bearer {api_key}'})
 #     return Response(response.content, mimetype='application/json')
 
-@app.route('/proxy-ip')
-def proxy_ip():
-    """Proxy endpoint for IP address retrieval."""
-    response = requests.get('https://api.ipify.org/?format=json')
-    return Response(response.content, mimetype='application/json')
+# @app.route('/proxy-ip')
+# def proxy_ip():
+#     """Proxy endpoint for IP address retrieval."""
+#     response = requests.get('https://api.ipify.org/?format=json')
+#     return Response(response.content, mimetype='application/json')
 
 # This one isn't ready to be published yet
 # @app.route("/fivem_test")
