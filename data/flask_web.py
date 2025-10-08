@@ -13,14 +13,23 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-from test_pages import simple_page
+
 from password_gen import password_gen
+# Pages
+from test_pages import test_pages
+from about_pages import about_pages
+from video_pages import video_pages
+from project_pages import project_pages
+from misc_pages import misc_pages
 
 ###
 # Downloads page
 from downloads import downloads
 # Form test page
 #from form_test import form_test
+##
+
+from waitress import serve
 
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -45,13 +54,26 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+###
 # Split the app into multiple python files
 # https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files
-app.register_blueprint(simple_page)
+app.register_blueprint(test_pages)
 # Downloads page
 app.register_blueprint(downloads)
 # Form test page
 #app.register_blueprint(form_test)
+
+# About pages
+app.register_blueprint(about_pages)
+
+# Video pages
+app.register_blueprint(video_pages)
+# Projects pages
+app.register_blueprint(project_pages)
+
+# Misc pages
+app.register_blueprint(misc_pages)
+###
 
 app.secret_key = os.environ.get("SECRET_KEY")
 
@@ -83,6 +105,33 @@ class CloudflareProxyFix:
 app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
 
 ###
+
+#-----------------
+# New loading pages test
+#-----------------
+
+def register_blueprints():
+    # Split the app into multiple python files
+    # https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files
+    app.register_blueprint(test_pages)
+    # Downloads page
+    app.register_blueprint(downloads)
+    # Form test page
+    # app.register_blueprint(form_test)
+
+    # About pages
+    app.register_blueprint(about_pages)
+
+    # Video pages
+    app.register_blueprint(video_pages)
+    # Projects pages
+    app.register_blueprint(project_pages)
+    ###
+
+# TODO Figure out how to use this with WGSI or Waitress Server for VPS.
+def setup_app():
+    register_blueprints()
+
 #-----------------
 # This toggles the logging to file on and off, useful for debugging without writing to the logs.
 # TODO Test new log format, this should rotate the logs and remove old ones.
@@ -156,41 +205,10 @@ def index():
     return render_template("index.html")
     # return render_template("index.html", password=password_gen(20))
 
-if passwordGenEnabled:
-    @app.route("/passwordgen")
-    def password_gen_test():
-        return password_gen(20)
-
-#-----------------
-# Display custom files in browser
-#-----------------
-
-# Display .sh files in browser instead of just downloading them.
-@app.route('/download/scripts/<path:filename>')
-def serve_script(filename):
-    # Define the directory where .sh files are stored
-    # Local desktop test
-    scripts_dir = '/downloads/scripts/'
-
-    # Construct the full path to the script file
-    file_path = os.path.join(scripts_dir, filename)
-
-    # Check if the file exists
-    if os.path.isfile(file_path):
-        # Log the IP address accessing the file
-        client_ip = request.remote_addr
-        if logEnabled:
-            logging.info(f"Access attempt: {client_ip} requested {file_path}")
-
-        return send_file(file_path, mimetype='text/plain', as_attachment=False)
-    else:
-        # Log an error message and return a 404 if the file does not exist
-        # app.logger.error(f"File not found: {file_path}")
-        if logEnabled:
-            logger.error('%s is not a file', filename)
-        # print(f"Trying to serve file: {file_path}")
-        # return send_file(file_path, mimetype='text/plain')
-##
+# if passwordGenEnabled:
+#     @app.route("/passwordgen")
+#     def password_gen_test():
+#         return password_gen(20)
 
 #-----------------
 # Error pages
@@ -208,138 +226,12 @@ def access_denied(error):
 
 
 #-----------------
-# About pages
-#-----------------
-
-@app.route("/about")
-def about_main_page():
-    return render_template("about.html")
-
-# Fivem Server
-@app.route("/about-fivem")
-def about_fivem_page():
-    return render_template("about-fivem.html")
-
-# Minecraft Server
-@app.route("/about-mc")
-def about_mc_page():
-    return render_template("about-mc.html")
-
-# I haven't set these two up yet.
-# Minecraft server image page
-# @app.route("/mc-photos")
-# def mc_photos_page():
-#     return render_template("mc-photos.html")
-#
-
-# I need to get the gitea server working for this one, most links are internal only so I'll leave it for later
-# @app.route("/about-code")
-# def about_code_page():
-    # return render_template("about-code.html")
-
-@app.route("/wiki")
-def wiki_page():
-    return redirect("https://wiki.kelsoncraft.net/", code=302)
-
-# Forum test, enable domain when ready to make public.
-# Todo Setup this forum later.
-# @app.route("/forum")
-# def forum_page():
-#     return redirect("https://forum.kelsoncraft.net/")
-
-
-#-----------------
-# End about pages
-#-----------------
-
-#-----------------
-# Video pages
-#-----------------
-
-# Main Video page
-# TODO Setup to need auth to browse certain files.
-@app.route("/videos")
-def video_main_page():
-    return render_template("videos.html")
-
-# Tom clancy ghost recon wildlands glitches
-# Glitch #1 (Chopper flies into the air after land)
-@app.route("/video1")
-def video1_page():
-    return render_template("video1.html")
-
-
-# ReVC Spinning cars
-@app.route("/video2")
-def video2_page():
-    return render_template("video2.html")
-
-
-#-----------------
-# End video pages
-#-----------------
-
-#-----------------
-# Begin Game/ReVC pages
-#-----------------
-
-@app.route("/projects")
-def projects_page():
-    return render_template("projects.html")
-
-# @app.route("/revc-additions")
-@app.route("/projects/revc")
-# def revc_additions_page():
-def revc_projects_page():
-    return render_template("revc-additions.html")
-
-
-#-----------------
-# End Game/ReVC pages
-#-----------------
-
-#-----------------
 # Test pages
 #-----------------
 if passwordGenEnabled:
     @app.route("/password_gen")
     def password_gen_page():
         return render_template("password_gen.html", passwords=password_gen(20))
-
-
-# TODO Possibly look into setting up API keys for certain endpoints.
-# @app.before_request
-# def check_authentication():
-#     # Only check authentication for the specified endpoint
-#     if request.endpoint == 'proxy_ip':
-#         # Fetch the API key from request headers
-#         api_key = request.headers.get('x-api-key')
-#
-#         # Check against the stored API key
-#         if api_key != os.environ.get("IP_API_KEY"):
-#             abort(403)  # Forbidden
-
-# @app.route('/proxy-ip')
-# def proxy_ip():
-#     """Proxy endpoint for IP address retrieval."""
-#     api_key = os.environ.get("IP_API_KEY")  # Fetch from environment variable
-#     response = requests.get('https://api.ipify.org/?format=json', headers={'Authorization': f'Bearer {api_key}'})
-#     return Response(response.content, mimetype='application/json')
-
-# Switched to using Cloudflare headers.
-@app.route('/proxy-ip')
-def proxy_ip():
-    """Get the client's IP address."""
-    # Fetch the original IP address from Cloudflare headers
-    ip_address = request.headers.get('CF-Connecting-IP') or request.remote_addr
-
-    return {'ip': ip_address}
-
-# This one isn't ready to be published yet
-# @app.route("/fivem_test")
-# @cross_origin()
-# def fivem_test_page():
-#     return render_template("fivem-test.html")
 
 #-----------------
 # End test pages
@@ -349,4 +241,8 @@ def proxy_ip():
 # waitress-serve --port 81 flask_web:app
 # I enabled app.run again for testing.
 if __name__ == '__main__':
+    # setup_app()
     app.run(host='0.0.0.0', port=8081, debug=True)
+else:
+    # Use Waitress to serve flask web when not running directly
+    serve(app, host='0.0.0.0', port=81)  # Production server
