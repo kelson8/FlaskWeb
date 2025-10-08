@@ -6,6 +6,10 @@ misc_pages = Blueprint('misc_pages', __name__, template_folder='templates')
 # Misc pages
 #-----------------
 
+@misc_pages.route("/blog")
+def blog_page():
+    return redirect("https://blog.kelsoncraft.net/", code=302)
+
 @misc_pages.route("/wiki")
 def wiki_page():
     return redirect("https://wiki.kelsoncraft.net/", code=302)
