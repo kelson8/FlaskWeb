@@ -50,6 +50,39 @@ For testing locally or developing this site, run like this:
 3. Then change the network and volumes in the docker-compose.yml
 4. To start: docker-compose up -d
 
+## Modifying the site
+This website now uses a template system for videos [video_template.html](https://github.com/kelson8/FlaskWeb/blob/main/data/templates/video_template.html), and for the base index.html [_base.html](https://github.com/kelson8/FlaskWeb/blob/main/data/templates/_base.html)
+
+To add new video pages to the site:
+
+
+1. Add the video file into data/static/videos
+2. Go to `def video_page(video_id):` in `video_pages.py`
+3. Add some videos into there like this: 
+```python '3': 
+videos = {
+            'title': "ReVC KCNet ImGui Test",
+            'description': "This is a ImGui mod menu I am working on in C++ using ReVC.",
+            'file': 'videos/ReVC-KCNet-ImGuiMenu1.mp4'
+        }
+```
+
+To add new pages to the site:
+1. Create a new html file in `data/templates`
+2. Go into the newly created html file, add this into it, this below matches my template:
+```html
+{% extends "_base.html" %}
+
+{% block title %}Site Title{% endblock %}
+
+{% block content %}
+<div class="mt-4 p-5 bg-secondary text-white rounded">
+    <h1 class="main_headers"> Site Header </h1>
+
+</div>
+{% endblock %}
+```
+
 # About
 This website has docker support.
 
