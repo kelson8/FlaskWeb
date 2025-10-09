@@ -1,97 +1,75 @@
-<!DOCTYPE html>
-<html>
+{% extends "_base.html" %}
 
-<head>
-  <title> KelsonCraft Website </title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-  {% include "partials/head.html" %}
-</head>
+{% block title %}Main Page{% endblock %}
 
-<body class="container">
-  <header>
-    <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
-    {% include "partials/header.html" %}
-  </header>
+{% block content %}
+<!-- <div class="mt-4 p-5 bg-success text-white rounded"> -->
+<div class="mt-4 p-5 bg-secondary text-white rounded">
+  <h1 class="main_headers"> Main Page </h1>
+  <p class="main_headers"> Welcome to the KelsonCraft website. </p>
+  <p> I will be hosting some projects here, possibly a WordPress, maybe a MTA SA server for GTA SA </p>
 
-  <main>
-    <!-- <div class="mt-4 p-5 bg-success text-white rounded"> -->
-      <div class="mt-4 p-5 bg-secondary text-white rounded">
-      <h1 class="main_headers"> Main Page </h1>
-      <p class="main_headers"> Welcome to the KelsonCraft website. </p>
-        <p> I will be hosting some projects here, possibly a WordPress, maybe a MTA SA server for GTA SA </p>
+  <p>
+    This website might have a forum hosted at forum.kelsoncraft.net in the future. <br>
+    I don't have it up and running yet though.
 
-          <p>
-        This website might have a forum hosted at forum.kelsoncraft.net in the future. <br>
-          I don't have it up and running yet though.
+    Not sure if I really want to maintain a forum.
 
-          Not sure if I really want to maintain a forum.
+  </p>
+  <p> I now have a blog hosted here: <a href="https://blog.kelsoncraft.net"> https://blog.kelsoncraft.net </a> </p>
 
-          </p>
-          <p> I now have a blog hosted here: <a href="https://blog.kelsoncraft.net"> https://blog.kelsoncraft.net </a> </p>
+  <hr>
+  <h1 class="main_headers"> About me and what I have been up to </h1>
+  <br>
 
-        <hr>
-        <h1 class="main_headers"> About me and what I have been up to </h1>
-        <br>
+  <p> I have decided not to pursue making a Minecraft server at all, or FiveM server for now, at least a public one.
+  </p>
 
-        <p> I have decided not to pursue making a Minecraft server at all, or FiveM server for now, at least a public one. </p>
+  <p> I may just keep the servers private between my friends and whoever wants to join it. </p>
 
-        <p> I may just keep the servers private between my friends and whoever wants to join it. </p>
+  <p>
+    I have been working on learning more coding with Godot the game engine using GDScript and C#.
+    <br><br>
+    The server stuff is fun but, I just don't have the time to dedicate to doing it full time like I want and
+    <br>
+    don't feel like messing with the servers.
+  </p>
 
-        <p>
-          I have been working on learning more coding with Godot the game engine using GDScript and C#.
-          <br><br>
-          The server stuff is fun but, I just don't have the time to dedicate to doing it full time like I want and
-          <br>
-          don't feel like messing with the servers.
-        </p>
-
-        <p>
-          Also, I am learning way more stuff to do with Linux Administration and Windows Administration,
-          <br>
-          networking, firewalls, and all kinds of stuff, I've even been making projects with Raspberry Pi Picos.
-        </p>
+  <p>
+    Also, I am learning way more stuff to do with Linux Administration and Windows Administration,
+    <br>
+    networking, firewalls, and all kinds of stuff, I've even been making projects with Raspberry Pi Picos.
+  </p>
 
 
-        <p>
-          I have a Raspberry Pi Pico running an IR Receiver for a remote, button #1 turns my bedroom lamp on, button #4 turns the lamp off.
-          <br>
-          I am using Home Assistant for the main part of it, and ESPHome on the Raspberry Pi Pico.
-        </p>
+  <p>
+    I have a Raspberry Pi Pico running an IR Receiver for a remote, button #1 turns my bedroom lamp on, button #4 turns
+    the lamp off.
+    <br>
+    I am using Home Assistant for the main part of it, and ESPHome on the Raspberry Pi Pico.
+  </p>
 
-          <p>
-          Learning this stuff has been fun for me, I enjoy messing around with code.
-            </p>
+  <p>
+    Learning this stuff has been fun for me, I enjoy messing around with code.
+  </p>
 
-          <p>
-          I may post pictures of my projects in the future when I feel like it, eventually I will also publish the code
-          and guides on how I am doing a lot of this stuff.
-            </p>
+  <p>
+    I may post pictures of my projects in the future when I feel like it, eventually I will also publish the code
+    and guides on how I am doing a lot of this stuff.
+  </p>
 
-        <hr>
-        <h1 class="main_headers"> Website links </h1>
-        <ul>
-        <!-- <p> I have a discord here: <a href="https://discord.com/invite/tdg2Bf9PpT">https://discord.com/invite/tdg2Bf9PpT</a></p> -->
-        <li> Site Wiki: <a href="https://wiki.kelsoncraft.net/en/home" target="_blank"> https://wiki.kelsoncraft.net/en/home </a></li>
-        <li> Site Discord: <a href="https://discord.com/invite/tdg2Bf9PpT" target="_blank"> https://discord.com/invite/tdg2Bf9PpT </a></li>
-        <li> My github: <a href="https://github.com/kelson8" target="_blank"> https://github.com/kelson8 </a></li>
-        <li> KCNet-Godot-Test (Godot Test game in GDScript and C#): <a href="https://github.com/kelson8/KCNet-Godot-Test" target="_blank">https://github.com/kelson8/KCNet-Godot-Test</a></li>
-          </ul>
+  <hr>
+  <h1 class="main_headers"> Website links </h1>
+  <ul>
+    <!-- <p> I have a discord here: <a href="https://discord.com/invite/tdg2Bf9PpT">https://discord.com/invite/tdg2Bf9PpT</a></p> -->
+    <li> Site Wiki: <a href="https://wiki.kelsoncraft.net/en/home" target="_blank"> https://wiki.kelsoncraft.net/en/home
+      </a></li>
+    <li> Site Discord: <a href="https://discord.com/invite/tdg2Bf9PpT" target="_blank">
+        https://discord.com/invite/tdg2Bf9PpT </a></li>
+    <li> My github: <a href="https://github.com/kelson8" target="_blank"> https://github.com/kelson8 </a></li>
+    <li> KCNet-Godot-Test (Godot Test game in GDScript and C#): <a href="https://github.com/kelson8/KCNet-Godot-Test"
+        target="_blank">https://github.com/kelson8/KCNet-Godot-Test</a></li>
+  </ul>
 
-      </div>
-  </main>
-
-
-  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
-
-  <footer>
-    {% include "partials/footer.html" %}
-  </footer>
-
-  <script src="{{url_for('static', filename='client.js')}}"></script>
-  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-  <script src="{{url_for('static', filename='passwordgen.js')}}"> </script>
-
-</body>
-
-</html>
+</div>
+{% endblock %}

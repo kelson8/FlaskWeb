@@ -1,46 +1,17 @@
-<!DOCTYPE html>
-<html>
+{% extends "_base.html" %}
 
-<head>
-  <title> KelsonCraft Website </title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% block title %}Video3{% endblock %}
 
-  {% include "partials/head.html" %}
+{% block content %}
 
-</head>
+<div class="mt-4 p-5 bg-secondary text-white rounded">
+  <h1 class="main_headers"> Videos </h1>
+  <p> ReVC KCNet ImGui Test </p>
+  <p> This is a ImGui mod menu I am working on in C++ using ReVC. </p>
+  <!-- TODO Make this mobile optimizied. -->
+  <video controls width="640" height="480" src="{{ url_for('static', filename='/videos/ReVC-KCNet-ImGuiMenu1.mp4') }}">
 
-<body class="container">
-  <header>
-    https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
-    {% include "partials/header.html" %}
-  </header>
+  </video>
+</div>
 
-  <main>
-    <div class="mt-4 p-5 bg-secondary text-white rounded">
-      <h1 class="main_headers"> Videos </h1>
-      <p> ReVC KCNet ImGui Test </p>
-      <p> This is a ImGui mod menu I am working on in C++ using ReVC. </p>
-      <!-- TODO Make this mobile optimizied. -->
-      <video controls width="640" height="480"
-                src="{{ url_for('static', filename='/videos/ReVC-KCNet-ImGuiMenu1.mp4') }}" >
-
-        </video>
-
-
-    </div>
-  </main>
-
-  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
-
-  <footer>
-    {% include "partials/footer.html" %}
-  </footer>
-
-  <script src="{{url_for('static', filename='client.js')}}"></script>
-  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-  <!-- <script src="{{url_for('static', filename='passwordgen.js')}}"> </script> -->
-
-</body>
-
-</html>
+{% endblock %}

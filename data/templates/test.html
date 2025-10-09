@@ -1,108 +1,34 @@
-<!DOCTYPE html>
-<html>
+{% extends "_base.html" %}
 
-<head>
-  <title> KelsonCraft Website </title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% block title %}Test Page{% endblock %}
 
-  {% include "partials/head.html" %}
+{% block content %}
+<div class="mt-4 p-5 bg-secondary text-white rounded">
+  <h1 class="main_headers">Testing random stuff</h1>
+  <p>Welcome to the test page.</p>
+  <input type="text" value="Readonly Input" class="field left" readonly>
 
-</head>
+  <button onclick="getIP()">Get public IP Address</button>
+  <input type="checkbox" name="Show/Hide" id="show_or_hide_ip_checkbox" onclick="showHideIp()">
+  <span id=ip_status>Shown</span>
+  <p id="ip"></p>
 
-<body class="container">
-  <header>
-    <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
-    {% include "partials/header.html" %}
-  </header>
+  <button onclick="setUserAgent()">Get User Agent string</button>
+  <input type="checkbox" name="Show/Hide" id="show_or_hide_useragent_checkbox" onclick="showHideUserAgent()"> 
+  <span id=user_agent_status>Shown</span>
+  <p id="user-agent"></p>
 
-  <main>
-    <div class="mt-4 p-5 bg-secondary text-white rounded">
-      <h1 class="main_headers"> Testing random stuff </h1>
-      <!-- <p> Welcome to the KelsonCraft Flask website. </p>
-            <p> I will be hosting some projects here, possibly a WordPress and other random stuff that I may work on. </p>
-            </p> -->
-      <p> Welcome to the test page. </p>
-      <!-- https://stackoverflow.com/questions/3676127/how-do-i-make-a-text-input-non-editable -->
-      <input type="text" value="Readonly Input" class="field left" readonly>
+  <hr>
 
-      <!--                <h3 class="main_headers">Your public IP address is:</h3>-->
-      <!--      <p id="ip-address"></p>-->
-
-
-      <!-- https://www.geeksforgeeks.org/javascript/how-to-get-client-ip-address-using-javascript/ -->
-      <!-- https://medium.com/@ryan_forrester_/get-ip-address-in-javascript-how-to-guide-13c91383b33f -->
-      <!-- I switched to using the /proxy-ip endpoint within my webserver, that seems to fix firefox blocking it with enhanced tracking protection -->
-
-      <br>
-      <button onclick="getIP()">Get public IP Address</button>
-      <input type="checkbox" name="Show/Hide" id="show_or_hide_ip_checkbox" onclick="showHideIp()">
-      <span id=ip_status> Shown </span>
-      <p id="ip"></p>
-
-      <br><br>
-
-      <button onclick="setUserAgent()">Get User Agent string</button>
-      <input type="checkbox" name="Show/Hide" id="show_or_hide_useragent_checkbox" onclick="showHideUserAgent()"> 
-      <span id=user_agent_status> Shown </span>
-      <p id="user-agent"></p>
-
-      <!--            <script>-->
-      <!--        document.addEventListener("DOMContentLoaded", function() {-->
-      <!--            fetch("https://ipinfo.io/json")-->
-      <!--                .then(response => response.json())-->
-      <!--                .then(data => {-->
-      <!--					document.getElementById("ip-address").textContent =-->
-      <!--                      	`IP Address: ${data.ip}`;-->
-      <!--                })-->
-      <!--				.catch(error => {-->
-      <!--					console.error("Error fetching IP address:", error);-->
-      <!--					document.getElementById("ip-address").textContent =-->
-      <!--                      	"Unable to retrieve IP address.";-->
-      <!--                });-->
-      <!--        });-->
-      <!--    </script>-->
-
-      <hr>
-      <p> Email encode/decode test, this takes an Email input and outputs an encoded version for bots to be less likely
-        to obtain it. </p>
-      <p> This also decodes the email from the encoded output that gets displayed. </p>
-      <p> Hides the encoded and decoded output if the checkbox is selected.</p>
-      <label>
-        <input id="decoded_email" type="email" value="Email" class="field right">
-      </label>
-      <!--        <button type="submit" onclick="getIP()"> Submit </button>-->
-      <button type="submit" onclick="getDecodedEmail()"> Submit </button>
-      <input type="checkbox" name="Show/Hide" id="show_or_hide_email_checkbox" onclick="showHideEmailCheckbox()">
-      <span id=email_status> Shown </span>
-
-      <p id="encoded_email_output"> </p>
-      <p id="decoded_email_output"> </p>
-      <!-- <button id="email_encode_button" type="submit"> Submit </button> -->
-      <br>
-      <!--        <input type="email" value="Readonly Input" class="field right" readonly>-->
-
-      <!--          <a class="eml-protected" href="#">1a6e7f696e5a6e7f696e34797577</a>-->
-
-    </div>
-
-  </main>
-
-
-
-
-  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
-
-  <footer>
-    {% include "partials/footer.html" %}
-  </footer>
-
-  <script src="{{url_for('static', filename='client.js')}}"></script>
-  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-
-  <script src="{{url_for('static', filename='test.js')}}"></script>
-  <!-- <script src="{{url_for('static', filename='passwordgen.js')}}"> </script> -->
-
-</body>
-
-</html>
+  <p>Email encode/decode test, this takes an Email input and outputs an encoded version for bots to be less likely to obtain it.</p>
+  <label>
+    <input id="decoded_email" type="email" value="Email" class="field right">
+  </label>
+  <button type="submit" onclick="getDecodedEmail()">Submit</button>
+  <input type="checkbox" name="Show/Hide" id="show_or_hide_email_checkbox" onclick="showHideEmailCheckbox()">
+  <span id=email_status>Shown</span>
+  
+  <p id="encoded_email_output"></p>
+  <p id="decoded_email_output"></p>
+</div>
+{% endblock %}

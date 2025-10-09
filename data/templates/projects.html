@@ -1,47 +1,17 @@
-<!DOCTYPE html>
-<html>
+{% extends "_base.html" %}
 
-<head>
-  <title> KelsonCraft Website </title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% block title %}Projects{% endblock %}
 
-  {% include "partials/head.html" %}
+{% block content %}
+<div class="mt-4 p-5 bg-secondary text-white rounded">
+  <h1 class="main_headers"> Projects </h1>
+  <p> Here are some projects that I am working on, for now I only have ReVC listed.</p>
 
-</head>
+  <ul>
+    <li>Additions to ReVC: <a href="/projects/revc">/projects/revc</a></li>
+  </ul>
 
-<body class="container">
-  <header>
-    <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
-    {% include "partials/header.html" %}
-  </header>
-
-  <main>
-    <div class="mt-4 p-5 bg-secondary text-white rounded">
-      <h1 class="main_headers"> Projects </h1>
-        <p> Here are some projects that I am working on, for now I only have ReVC listed.</p>
-
-        <ul>
-            <li>Additions to ReVC: <a href="/projects/revc">/projects/revc</a></li>
-        </ul>
-
-      <p> Check out more on my GitHub <a href="https://github.com/kelson8?tab=repositories" target="_blank">https://github.com/kelson8?tab=repositories</a></p>
-
-
-    </div>
-  </main>
-
-
-  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
-
-  <footer>
-    {% include "partials/footer.html" %}
-  </footer>
-
-  <script src="{{url_for('static', filename='client.js')}}"></script>
-  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-  <!-- <script src="{{url_for('static', filename='passwordgen.js')}}"> </script> -->
-
-</body>
-
-</html>
+  <p> Check out more on my GitHub <a href="https://github.com/kelson8?tab=repositories"
+      target="_blank">https://github.com/kelson8?tab=repositories</a></p>
+</div>
+{% endblock %}

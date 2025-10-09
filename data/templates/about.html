@@ -1,168 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "_base.html" %}
 
-<head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-  <title> KelsonCraft About Page </title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  {% include "partials/head.html" %}
-</head>
+{% block title %}About{% endblock %}
 
-<body class="container">
+{% block content %}
+<div class="row">
+  <div class="col-sm-8">
+    <div class="mt-4 p-5 bg-primary text-white rounded">
+      <h1 class="main_headers">Welcome to the about page</h1>
+      <p>I will be hosting this site mostly in Python Flask. There is a couple of items on the sidebar for info pages.
+      </p>
+    </div>
+  </div>
 
-  <header>
-    {% include "partials/header.html" %}
-  </header>
+  <div class="col-sm-4">
+    <div class="well">
 
-  <main>
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="mt-4 p-5 bg-primary text-white rounded">
-          <h1 class="main_headers">Welcome to the about page</h1>
-          <p>I will be hosting this site mostly in Python Flask. There is a couple of items on the sidebar for info pages.</p>
-        </div>
-      </div>
-
-      <div class="col-sm-4">
-        <div class="well">
-
-          <!-- Side bar, using my new custom css in about.css. -->
-          <div>
-            <!-- https://getbootstrap.com/docs/5.0/components/alerts/ -->
-            <div class="alert alert-primary" role="alert">
-              Site links below
-            </div>
-
-
-            <div class="sidebar_paragraph">
-            <ul>
-                <li><p>Minecraft server info:
-                  <a href="/about-mc">about-mc</a> </p> </li>
-
-                <li><p>Fivem Server Info:
-                  <a href="/about-fivem">about-fivem</a> </p> </li>
-
-                <li> <p>GitHub repo for the website code:
-                  <a href="https://github.com/kelson8/FlaskWeb" target="_blank">https://github.com/kelson8/FlaskWeb</a> </p> </li>
-
-                <li> <p>GitHub Profile link:
-                  <a href="https://github.com/kelson8" target="_blank">https://github.com/kelson8</a></p> </li>
-            <!-- These are for internal use and are disabled. -->
-               </ul>
-
-
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-
-
-      <!-- <div class="p-5 mb-4 bg-success rounded-3"> -->
-      <div class="row">
-
-        <!-- Try to get this box below centered with the other one, I'm not sure how to do that. -->
-
-        <div class="mt-4 p-5 bg-secondary text-white rounded-3">
-          <h1 class="main_headers">About this site </h1>
-          <hr>
-              I will be hosting projects here such as a Minecraft map with dynmap, a forum, a git server and other items that I decide to host.
-              <br>
-                </p>
-
-          <p class="col-md-8 fs-6">
-            Anyone is welcome to take a look at the source code and it's
-            licensed with GPLV3 so do whatever you want with the code. Please give credit if you use any of it, thanks!
-
-          </p>
+      <!-- Side bar, using my new custom css in about.css. -->
+      <div>
+        <!-- https://getbootstrap.com/docs/5.0/components/alerts/ -->
+        <div class="alert alert-primary" role="alert">
+          Site links below
         </div>
 
 
-        <div class="mt-4 p-5 bg-secondary text-white rounded-3">
-          <h1 class="main_headers">About me</h1>
-          <hr>
-
-          <p class="col-md-8 fs-6">Here's a little bit about myself, my name is Kelson and my username is usually
-            kelson8.
-            I've always been passionate about tech especially computer hardware, Minecraft coding for spigot is what
-            originally got me into programming.
-            <br>
-            <br> I have a small spigot plugin that I occasionally add features to, currently one of the noteable
-            features is the localchat. The link to the spigot plugin is here <a href="https://github.com/kelson8/KBP">https://github.com/kelson8/KBP</a>
-
-
-            <br>
-
-            <br> I am pretty decent at coding with Python, and I enjoy messing around with FiveM lua scripts.
-            I know a lot of Java, lua, python, html, and css.
-            <br><br>
-
-            I've played around with making a basic
-                 GTA 5 Script Hook V mod with C#.
-                 <br>
-                 I have messed with C++ quite a bit, and have made some mods <br>
-                 for GTA 5, San Andreas and some other Grand Theft Auto games using it.
-            <br>
-          </p>
-
-          <br>
-          <h3 class="main_headers"> Coding languages that I know </h3>
-
-          <ul class="spaced_margins">
-
+        <div class="sidebar_paragraph">
+          <ul>
             <li>
-              Java - This is where I really started coding and probably what really got me into tech.
-              <br>
-              Back in 2013 I started becoming interested in Spigot coding for Minecraft.
-
-            </li>
-
-            <li> Python - I have messed around with Python quite a bit and have made a ton of small<br> scripts and stuff with it.
-            I might eventually publish them, but I had some files that I can't publically share in the repo.
+              <p>Minecraft server info:
+                <a href="/about-mc">about-mc</a>
+              </p>
             </li>
 
             <li>
-            Lua - I have mostly messed around with FiveM scripts using lua, it's not a bad scripting language to get stuff done quickly.
+              <p>Fivem Server Info:
+                <a href="/about-fivem">about-fivem</a>
+              </p>
             </li>
 
             <li>
-            Web dev (html, css, javascript) - I know enough html and css to build a basic site.
-              <br>
-              Also, I'm decent at javascript and have made a couple of parts of this site using it.
-              <br>
-              I have recently started messing around with ReactJS, NextJS, and Typescript to learn
-              to use those frameworks a bit more.
-              <br>
+              <p>GitHub repo for the website code:
+                <a href="https://github.com/kelson8/FlaskWeb" target="_blank">https://github.com/kelson8/FlaskWeb</a>
+              </p>
             </li>
 
-          <li>
-            C# - I have messed around with ImGui, GTA 5 modding and other game mods in C#.
-          </li>
-
-          <li>
-            C++ - I have been learning quite a bit of C++ using SFML for game development and using ImGui to mess around with.
-          </li>
-
-            </ul>
-
-
-
+            <li>
+              <p>GitHub Profile link:
+                <a href="https://github.com/kelson8" target="_blank">https://github.com/kelson8</a>
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-  </main>
+  </div>
 
-  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
 
-  <footer>
-    {% include "partials/footer.html" %}
-  </footer>
+  <!-- <div class="p-5 mb-4 bg-success rounded-3"> -->
+  <div class="row">
 
-  <script src="{{url_for('static', filename='client.js')}}"></script>
-  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-  <script src="{{url_for('static', filename='passwordgen.js')}}"> </script>
+    <!-- Try to get this box below centered with the other one, I'm not sure how to do that. -->
 
-</body>
+    <div class="mt-4 p-5 bg-secondary text-white rounded-3">
+      <h1 class="main_headers">About this site </h1>
+      <hr>
+      I will be hosting projects here such as a Minecraft map with dynmap, a forum, a git server and other items that I
+      decide to host.
+      <br>
+      </p>
 
-</html>
+      <p class="col-md-8 fs-6">
+        Anyone is welcome to take a look at the source code and it's
+        licensed with GPLV3 so do whatever you want with the code. Please give credit if you use any of it, thanks!
+
+      </p>
+    </div>
+
+
+    <div class="mt-4 p-5 bg-secondary text-white rounded-3">
+      <h1 class="main_headers">About me</h1>
+      <hr>
+
+      <p class="col-md-8 fs-6">Here's a little bit about myself, my name is Kelson and my username is usually
+        kelson8.
+        I've always been passionate about tech especially computer hardware, Minecraft coding for spigot is what
+        originally got me into programming.
+        <br>
+        <br> I have a small spigot plugin that I occasionally add features to, currently one of the noteable
+        features is the localchat. The link to the spigot plugin is here <a
+          href="https://github.com/kelson8/KBP">https://github.com/kelson8/KBP</a>
+
+
+        <br>
+
+        <br> I am pretty decent at coding with Python, and I enjoy messing around with FiveM lua scripts.
+        I know a lot of Java, lua, python, html, and css.
+        <br><br>
+
+        I've played around with making a basic
+        GTA 5 Script Hook V mod with C#.
+        <br>
+        I have messed with C++ quite a bit, and have made some mods <br>
+        for GTA 5, San Andreas and some other Grand Theft Auto games using it.
+        <br>
+      </p>
+
+      <br>
+      <h3 class="main_headers"> Coding languages that I know </h3>
+
+      <ul class="spaced_margins">
+
+        <li>
+          Java - This is where I really started coding and probably what really got me into tech.
+          <br>
+          Back in 2013 I started becoming interested in Spigot coding for Minecraft.
+
+        </li>
+
+        <li> Python - I have messed around with Python quite a bit and have made a ton of small<br> scripts and stuff
+          with it.
+          I might eventually publish them, but I had some files that I can't publically share in the repo.
+        </li>
+
+        <li>
+          Lua - I have mostly messed around with FiveM scripts using lua, it's not a bad scripting language to get stuff
+          done quickly.
+        </li>
+
+        <li>
+          Web dev (html, css, javascript) - I know enough html and css to build a basic site.
+          <br>
+          Also, I'm decent at javascript and have made a couple of parts of this site using it.
+          <br>
+          I have recently started messing around with ReactJS, NextJS, and Typescript to learn
+          to use those frameworks a bit more.
+          <br>
+        </li>
+
+        <li>
+          C# - I have messed around with ImGui, GTA 5 modding and other game mods in C#.
+        </li>
+
+        <li>
+          C++ - I have been learning quite a bit of C++ using SFML for game development and using ImGui to mess around
+          with.
+        </li>
+
+      </ul>
+
+
+
+    </div>
+  </div>
+</div>
+{% endblock %}

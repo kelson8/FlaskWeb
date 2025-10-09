@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
+{% extends "_base.html" %}
 
-<head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <title> KelsonCraft Website </title>
-  {% include "partials/head.html" %}
-</head>
+{% block title %}File Error{% endblock %}
 
-<body class="container">
-  <header>
-    <!-- https://stackoverflow.com/questions/24847753/flask-jinja2-how-to-separate-header-base-and-footer -->
-    {% include "partials/header.html" %}
-  </header>
-
-  <main>
+{% block content %}
     <!-- <div class="mt-4 p-5 bg-success text-white rounded"> -->
       <div class="mt-4 p-5 bg-secondary text-white rounded">
       <h1 class="main_headers" style="text-align:center;"> Error: </h1>
@@ -22,17 +10,4 @@
       <br>
         if you made it here by mistake, click <a href="https://kelsoncraft.net">Here</a> to get back to the main page.</p>
     </div>
-  </main>
-
-  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
-
-  <footer>
-    {% include "partials/footer.html" %}
-  </footer>
-
-  <script src="{{url_for('static', filename='client.js')}}"></script>
-  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-
-</body>
-
-</html>
+{% endblock %}

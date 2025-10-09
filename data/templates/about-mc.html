@@ -1,88 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "_base.html" %}
 
-<head>
-  <title> About MC </title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-  {% include "partials/head.html" %}
-</head>
+{% block title %}About MC{% endblock %}
 
-<body class="container">
+{% block content %}
+<div class="row">
+  <div class="col-sm-10 mx-auto">
+    <div class="mt-4 p-5 bg-secondary text-white rounded">
+      <h1 class="main_headers"> KelsonCraft Forge Mod Pack </h1>
+      <p>
+        Hello, this page will have info about the Forge mod pack.
+        <br>
+        I will update the wiki for the minecraft server to include what all mods I have in the forge pack later.
+      </p>
 
-  <header>
-    {% include "partials/header.html" %}
-  </header>
+      <h1 class="main_headers"> Some mods in the pack </h1>
 
-  <main>
-    <div class="row">
-      <div class="col-sm-10 mx-auto">
-        <div class="mt-4 p-5 bg-secondary text-white rounded">
-          <h1 class="main_headers"> KelsonCraft Forge Mod Pack </h1>
-          <p>
-            Hello, this page will have info about the Forge mod pack.
-            <br>
-            I will update the wiki for the minecraft server to include what all mods I have in the forge pack later.</p>
+      <p>
+        <br>
+        I have Mekanism, Thermal Expansion, Enderio and a ton of other cool mods.
+        <br>
+        The links to the mods and the mod list will be in the wiki once I get it setup.
+        <!-- Todo Setup mod list on the wiki -->
+        <!-- <a href=""> Mod list </a>. -->
 
-            <h1 class="main_headers"> Some mods in the pack </h1>
+        <br>
+      </p>
 
-              <p>
-              <br>
-              I have Mekanism, Thermal Expansion, Enderio and a ton of other cool mods.
-                <br>
-              The links to the mods and the mod list will be in the wiki once I get it setup.
-              <!-- Todo Setup mod list on the wiki -->
-              <!-- <a href=""> Mod list </a>. -->
+      <h1 class="main_headers"> Technical details below </h1>
+      <p> The forge modpack that I have uses Computer Craft and I have been learning how to interface with the computers
+        in the pack. </p>
+      <p>
+        I use <a href="https://www.curseforge.com/minecraft/mc-mods/kubejs">KubeJS</a> for stuff like making new
+        recipes,
+        and quite a bit of scripting features for the serve. <br>
+        So I can customize the KelsonCraft server to my liking and
+        try to add what is requested.
+      </p>
 
-              <br>
-              </p>
+      <h1 class="main_headers"> About server </h1>
+      <p>
+        I changed my mind about the servers.
+        I will not be hosting a MineCraft server in the near future.
+        <br>
+        I probably won't even host a FiveM one, not sure on that yet.
+      </p>
 
-              <h1 class="main_headers"> Technical details below </h1>
-              <p> The forge modpack that I have uses Computer Craft and I have been learning how to interface with the computers in the pack. </p>
-                <p>
-                I use <a href="https://www.curseforge.com/minecraft/mc-mods/kubejs">KubeJS</a> for stuff like making new recipes,
-                and quite a bit of scripting features for the serve. <br>
-                  So I can customize the KelsonCraft server to my liking and
-                try to add what is requested.
-                  </p>
-
-              <h1 class="main_headers"> About server </h1>
-                  <p>
-                     I changed my mind about the servers.
-            I will not be hosting a MineCraft server in the near future.
-                    <br>
-                    I probably won't even host a FiveM one, not sure on that yet.
-                    </p>
-
-            <br>
-        </div>
-      </div>
-
-<!--      <div class="col-sm-4">-->
-<!--        <div class="well">-->
-
-<!--          &lt;!&ndash; Side bar &ndash;&gt;-->
-<!--          <p class="fs-6"> -->
-<!--           <br>-->
-
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
+      <br>
     </div>
+  </div>
 
-  </main>
+  <!--      <div class="col-sm-4">-->
+  <!--        <div class="well">-->
 
-  <br>
-  <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
+  <!--          &lt;!&ndash; Side bar &ndash;&gt;-->
+  <!--          <p class="fs-6"> -->
+  <!--           <br>-->
 
-  <footer>
-    {% include "partials/footer.html" %}
-  </footer>
-
-  <script src="{{url_for('static', filename='client.js')}}"></script>
-  <script src="{{url_for('static', filename='darkmode.js')}}"></script>
-  <script src="{{url_for('static', filename='passwordgen.js')}}"> </script>
-
-</body>
-
-</html>
+  <!--          </p>-->
+  <!--        </div>-->
+  <!--      </div>-->
+</div>
+{% endblock %}

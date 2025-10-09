@@ -3,8 +3,22 @@
  the about pages.
 */
 
-.main_headers{
-    text-align: center;
+
+/* Moved out of password_gen.html */
+
+/* https://stackoverflow.com/questions/33656450/trying-to-make-html-box-around-entry-fields-and-make-it-all-nice */
+/* This one works the way I want, puts the generated password to the right in a box. */
+/* https://stackoverflow.com/questions/39959023/styling-p-tags-within-a-border-box */
+/* #passwordtest{
+	border: solid 3px #4D545E; padding: 6px;
+} */
+#passwordtest {
+	border: 1px solid black;
+	display: inline-block;
+}
+
+.main_headers {
+	text-align: center;
 }
 
 /*
@@ -14,21 +28,24 @@
 */
 
 ul.spaced_margins {
-  display: flex;
-  flex-direction: column; /* To make the list vertical */
-  gap: 10px; /* Adds 10 pixels of space between the list items */
+	display: flex;
+	flex-direction: column;
+	/* To make the list vertical */
+	gap: 10px;
+	/* Adds 10 pixels of space between the list items */
 }
 
-.sidebar_paragraph{
-    font-size: 20px;
+.sidebar_paragraph {
+	font-size: 20px;
 }
 
-header h1.headerIndex{
+header h1.headerIndex {
 	margin: auto;
 	/* margin: 0;*/
 	width: 50%;
 	font-size: 1.7em;
-	color: #fff; /* White */
+	color: #fff;
+	/* White */
 	/* color: #32a852;  Light Green */
 	/*text-transform: uppercase;*/
 	text-align: center;
@@ -43,7 +60,7 @@ div.p2 {
 }
 
 /* Dark mode button customizations */
-.change{
+.change {
 	/* cursor: pointer; */
 	border: 1px solid #555;
 	border-radius: 40%;
@@ -53,7 +70,7 @@ div.p2 {
 	margin-left: 8px
 }
 
-.dark{
+.dark {
 	background-color: #222;
 	color: #e6e6e6;
 }
