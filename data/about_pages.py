@@ -13,17 +13,17 @@ about_pages = Blueprint('about_pages', __name__, template_folder='templates')
 
 @about_pages.route("/about")
 def about_main_page():
-    return render_template("about.html")
+    return render_template("/about/about.html")
 
 # Fivem Server
 @about_pages.route("/about-fivem")
 def about_fivem_page():
-    return render_template("about-fivem.html")
+    return render_template("/about/about-fivem.html")
 
 # Minecraft Server
 @about_pages.route("/about-mc")
 def about_mc_page():
-    return render_template("about-mc.html")
+    return render_template("/about/about-mc.html")
 
 # I haven't set these two up yet.
 # Minecraft server image page

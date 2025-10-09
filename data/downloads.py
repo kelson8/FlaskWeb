@@ -35,7 +35,7 @@ if not os.path.exists(upload_directory):
 @downloads.route("/download")
 def list_files():
     """ List files on the server. -- Disabled """
-    return render_template("file-error.html")
+    return render_template("errors/file-error.html")
 
 
 @downloads.route("/download/<path:path>")
