@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request
+import requests
+from flask import Blueprint, render_template, request, Response
 from password_gen import password_gen
 
 # TODO Figure out how to move this one, for now it'll stay in flask_web.py.
@@ -9,6 +10,11 @@ from password_gen import password_gen
 # https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files
 
 test_pages = Blueprint('test_pages', __name__, template_folder='templates')
+
+# If this is true, this enables Cloudflare and gets the public IP with the `CF-Connecting-IP` header.
+# If this is false, it just gets the public IP directly.
+# Useful for debugging on the internal network.
+cloudflare_ip_output = True
 
 # Test page, replaced nodejs link with this on the flask server.
 # @test_pages.route('/test')
@@ -59,13 +65,23 @@ def test_page():
 #     return Response(response.content, mimetype='application/json')
 
 # Switched to using Cloudflare headers.
+# This can be toggled to
 @test_pages.route('/proxy-ip')
 def proxy_ip():
-    """Get the client's IP address."""
-    # Fetch the original IP address from Cloudflare headers
-    ip_address = request.headers.get('CF-Connecting-IP') or request.remote_addr
+    if not cloudflare_ip_output:
+        """Proxy endpoint for IP address retrieval, this doesn't use Cloudflare."""
 
-    return {'ip': ip_address}
+        response = requests.get('https://api.ipify.org/?format=json')
+
+        return Response(response.content, mimetype='application/json')
+    else:
+        """Get the client's IP address."""
+        # Fetch the original IP address from Cloudflare headers
+        ip_address = request.headers.get('CF-Connecting-IP') or request.remote_addr
+
+        return {'ip': ip_address}
+
+
 
 # This one isn't ready to be published yet
 # @test_pages.route("/fivem_test")
