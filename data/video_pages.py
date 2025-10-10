@@ -1,11 +1,17 @@
-from flask import Blueprint, render_template, abort
+import json
+
+from flask import Blueprint, render_template, abort, send_from_directory, current_app
+
+import os
 
 video_pages = Blueprint('video_pages', __name__, template_folder='templates')
 
+# Base directory where videos are stored
+# video_directory = os.path.join(flask_web.app.root_path, 'media', 'videos')
 
-#-----------------
+#----------------
 # Video pages
-#-----------------
+#----------------
 
 # Main Video page
 # TODO Setup to need auth to browse certain files.
@@ -13,27 +19,16 @@ video_pages = Blueprint('video_pages', __name__, template_folder='templates')
 def video_main_page():
     return render_template("videos.html")
 
-# To add new video pages, add the file in
 @video_pages.route('/video/<video_id>')
 def video_page(video_id):
-    # Example data fetch for demonstration purposes
-    videos = {
-        '1': {
-            'title': "Tom Clancy's Ghost Recon Wildlands Chopper glitch",
-            'description': "I'm not sure how I would do this again, it just randomly happened one day.",
-            'file': 'videos/tom_clancy_wildlands_glitch1.mp4'
-        },
-        '2': {
-            'title': "ReVC Spinning Cars",
-            'description': "I coded this function using C++ to mess around with, the game crashes at the end.",
-            'file': 'videos/ReVC-SpinningCars.mp4'
-        },
-        '3': {
-            'title': "ReVC KCNet ImGui Test",
-            'description': "This is a ImGui mod menu I am working on in C++ using ReVC.",
-            'file': 'videos/ReVC-KCNet-ImGuiMenu1.mp4'
-        }
-    }
+    # Load videos from JSON file
+    try:
+        with open('json/videos.json', 'r') as f:  # Update to your actual path
+            videos = json.load(f)
+    except FileNotFoundError:
+        abort(500, "Video data not found.")
+    except json.JSONDecodeError:
+        abort(500, "Error decoding video data.")
 
     video_data = videos.get(video_id)
 
@@ -46,17 +41,17 @@ def video_page(video_id):
                            video_file=video_data['file'])
 
 
-# Tom clancy ghost recon wildlands glitches
-# Glitch #1 (Chopper flies into the air after land)
-# @video_pages.route("/video1")
-# def video1_page():
-#     return render_template("video1.html")
+@video_pages.route('/media/videos/<path:filename>')
+def serve_video(filename):
+    # Use current_app to access the root_path
+    video_directory = os.path.join(current_app.root_path, 'media', 'videos')
+    video_path = os.path.join(video_directory, filename)
 
+    # Additional check to confirm file existence
+    if not os.path.isfile(video_path):
+        abort(404)
 
-# # ReVC Spinning cars
-# @video_pages.route("/video2")
-# def video2_page():
-#     return render_template("video2.html")
+    return send_from_directory(video_directory, filename)
 
 
 #-----------------

@@ -9,7 +9,8 @@
 
   <div class="embed-responsive embed-responsive-16by9">
     <video class="embed-responsive-item" controls>
-      <source src="{{ url_for('static', filename=video_file) }}" type="video/mp4">
+<!--      <source src="{{ url_for('static', filename=video_file) }}" type="video/mp4">-->
+      <source src="{{ url_for('video_pages.serve_video', filename=video_file) }}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
