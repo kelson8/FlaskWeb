@@ -15,7 +15,9 @@ templates/fivem-test.html
 templates/var_test.html
 
 data/templates/backups
-data/media
+data/media/videos/*.mp4
+data/media/videos/*.webm
+data/media/videos/*.mov
 
 # Video and music
 *.mp4

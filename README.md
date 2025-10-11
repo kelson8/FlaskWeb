@@ -53,22 +53,38 @@ For testing locally or developing this site, run like this:
 ## Modifying the site
 This website now uses a template system for videos [video_template.html](https://github.com/kelson8/FlaskWeb/blob/main/data/templates/video_template.html), and for the base index.html [_base.html](https://github.com/kelson8/FlaskWeb/blob/main/data/templates/_base.html)
 
-To add new video pages to the site:
+**To add new video pages to the site:**
 
-
-1. Add the video file into data/static/videos
-2. Go to `def video_page(video_id):` in `video_pages.py`
-3. Add some videos into there like this: 
-```python '3': 
-videos = {
-            'title': "ReVC KCNet ImGui Test",
-            'description': "This is a ImGui mod menu I am working on in C++ using ReVC.",
-            'file': 'videos/ReVC-KCNet-ImGuiMenu1.mp4'
-        }
+1. Add the video file into `data/media/videos`
+2. Go to `data/json/videos.json`
+3. Add some videos into there like this, specify the title, description, and file name that is in `data/media/videos`
+```json: 
+{
+  "1": {
+    "title": "Tom Clancy's Ghost Recon Wildlands Chopper glitch",
+    "description": "I'm not sure how I would do this again, it just randomly happened one day.",
+    "file": "tom_clancy_wildlands_glitch1.mp4"
+  },
+  "2": {
+    "title": "ReVC Spinning Cars",
+    "description": "I coded this function using C++ to mess around with, the game crashes at the end.",
+    "file": "ReVC-SpinningCars.mp4"
+  },
+  "3": {
+    "title": "ReVC KCNet ImGui Test",
+    "description": "This is a ImGui mod menu I am working on in C++ using ReVC.",
+    "file": "ReVC-KCNet-ImGuiMenu1.mp4"
+  },
+  "4": {
+    "title": "KCNet Flask Auth Test",
+    "description": "This is a test for logins with Python Flask, and SQLite.",
+    "file": "KCnet_Auth-2025-10-9.mp4"
+  }
+}
 ```
 
-To add new pages to the site:
-1. Create a new html file in `data/templates`
+**To add new pages to the site:**
+1. Create a new html file in `data/templates`, specify a category such as `data/templates/projects` if needed.
 2. Go into the newly created html file, add this into it, this below matches my template:
 ```html
 {% extends "_base.html" %}
@@ -82,6 +98,14 @@ To add new pages to the site:
 </div>
 {% endblock %}
 ```
+
+3. Add the page into one of the python files for pages, such as `test_pages.py` or `project_pages.py` example for rpi-pico project page in `project_pages.py`:
+```python
+@project_pages.route("/projects/rpi-pico")
+def rpi_pico_projects_page():
+    return render_template("/projects/rpi-pico.html")
+```
+
 
 # About
 This website has docker support.
