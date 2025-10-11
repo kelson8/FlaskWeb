@@ -8,6 +8,12 @@ downloads/
 # Video folder
 static/videos
 
+# Log folder
+logs/
+
+# Allow nginx config, enable when ready.
+!data/nginx/config
+
 # Backup folders
 templates/backups
 # Test files

@@ -9,14 +9,33 @@ services:
       - ./data:/app
       # Added new download directory
       - /mnt/docker_volume/flask_downloads:/downloads
-    ports:
-#      - 8010:81
-      - "127.0.0.1:8010:81"
-      # - 5000:5000
+#   Re-enable the 127.0.0.1 for prod, testing disabling this for access with Nginx.
+#     ports:
+# #      - 8010:81
+#       - "127.0.0.1:8010:81"
+#       # - 5000:5000
     restart: unless-stopped
     command: waitress-serve --port 81 flask_web:app
 #    depends_on:
 #      - mariadb_flask
+
+  # Test for using Flask behind Nginx, this seems to work like this.
+  # TODO Test on VPS, see if this gets the IP behind cloudflare, this doesn't get the IP locally.
+  # TODO Possibly add php to this? Not sure if it's needed here.
+  nginx:
+    image: nginx:latest
+    container_name: nginx_web
+    networks:
+      - testing
+    volumes:
+      - ./data/nginx/config:/etc/nginx
+      - ./logs/nginx:/var/log/nginx/
+    ports:
+     - 8011:80
+      # - "127.0.0.1:8010:80"
+      # - 5000:5000
+    restart: unless-stopped
+
 
   # Disabled mariadb database until I'm ready to use it.
   #mariadb_flask:
