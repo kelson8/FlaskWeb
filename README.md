@@ -110,6 +110,9 @@ def rpi_pico_projects_page():
 # About
 This website has docker support.
 
+The website now uses [Plyr javascript video player](https://plyr.io/) for the video player.
+ For now, I have disabled direct downloads of videos with this.
+
 I may use mariadb for the website also in the future.
 
 This is running with the waitress WGSI Server.
