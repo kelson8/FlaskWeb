@@ -6,6 +6,9 @@ import os
 
 video_pages = Blueprint('video_pages', __name__, template_folder='templates')
 
+# Specify where the videos.json is located here.
+videos_json_file = 'json/videos.json'
+
 # Base directory where videos are stored
 # video_directory = os.path.join(flask_web.app.root_path, 'media', 'videos')
 
@@ -23,7 +26,7 @@ def video_main_page():
 def video_page(video_id):
     # Load videos from JSON file
     try:
-        with open('json/videos.json', 'r') as f:  # Update to your actual path
+        with open(videos_json_file, 'r') as f:
             videos = json.load(f)
     except FileNotFoundError:
         abort(500, "Video data not found.")

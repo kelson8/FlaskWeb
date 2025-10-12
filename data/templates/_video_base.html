@@ -8,6 +8,8 @@
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.6.4/plyr.css">
+
   {% include "partials/head.html" %}
 </head>
 
@@ -30,9 +32,14 @@
     {% include "partials/footer.html" %}
   </footer>
 
-  <script src="{{url_for('static', filename='js/client.js')}}"></script>
   <script src="{{url_for('static', filename='js/darkmode.js')}}"></script>
-  <script src="{{url_for('static', filename='js/test.js')}}"></script>
+
+  <!-- Include Plyr JavaScript and plyr_controls -->
+
+  <script src="https://cdn.plyr.io/3.6.4/plyr.js"></script>
+  <script src="{{url_for('static', filename='js/plyr_controls.js')}}"></script>
+
+
 </body>
 
 </html>
