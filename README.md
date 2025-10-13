@@ -57,31 +57,37 @@ This website now uses a template system for videos [video_template.html](https:/
 
 1. Add the video file into `data/media/videos`
 2. Go to `data/json/videos.json`
-3. Add some videos into there like this, specify the title, description, and file name that is in `data/media/videos`
+3. If the video is needing to be restricted set restricted to true in the `videos.json` and, add it into `data/media/videos`, if not then add it into `data/static/videos`
+4. Add some videos into there like this, specify the title, description, and file name that is in `data/media/videos`
 ```json: 
 {
   "1": {
     "title": "Tom Clancy's Ghost Recon Wildlands Chopper glitch",
     "description": "I'm not sure how I would do this again, it just randomly happened one day.",
-    "file": "tom_clancy_wildlands_glitch1.mp4"
+    "file": "tom_clancy_wildlands_glitch1.mp4",
+    "restricted": false
   },
   "2": {
     "title": "ReVC Spinning Cars",
     "description": "I coded this function using C++ to mess around with, the game crashes at the end.",
-    "file": "ReVC-SpinningCars.mp4"
+    "file": "ReVC-SpinningCars.mp4",
+    "restricted": false
   },
   "3": {
     "title": "ReVC KCNet ImGui Test",
     "description": "This is a ImGui mod menu I am working on in C++ using ReVC.",
-    "file": "ReVC-KCNet-ImGuiMenu1.mp4"
+    "file": "ReVC-KCNet-ImGuiMenu1.mp4",
+    "restricted": false
   },
   "4": {
     "title": "KCNet Flask Auth Test",
     "description": "This is a test for logins with Python Flask, and SQLite.",
-    "file": "KCnet_Auth-2025-10-9.mp4"
+    "file": "KCnet_Auth-2025-10-9.mp4",
+    "restricted": true
   }
 }
 ```
+4. 
 
 **To add new pages to the site:**
 1. Create a new html file in `data/templates`, specify a category such as `data/templates/projects` if needed.

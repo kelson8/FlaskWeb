@@ -9,6 +9,10 @@ from flask import Flask, url_for, request, render_template, jsonify, redirect, m
     send_from_directory, Response, abort
 from flask_cors import CORS, cross_origin
 
+## Auth test
+from flask_login import LoginManager, UserMixin
+from models import User, log_enabled, password_gen_enabled
+
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -36,11 +40,7 @@ from logging.handlers import TimedRotatingFileHandler
 
 # TODO Look into this later: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
 
-# Disable the password generator for now.
-passwordGenEnabled = False
 
-# Toggle logging on/off here, if off it redirects log output to the console in PyCharm.
-logEnabled = True
 
 # Setup .env file for database password
 # https://stackoverflow.com/questions/41546883/what-is-the-use-of-python-dotenv
@@ -49,6 +49,11 @@ load_dotenv(dotenv_path)
 
 # Set up the app, and login manager
 app = Flask(__name__)
+
+## New for SQLite username/password DB.
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+##
 
 # https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask
 cors = CORS(app)
@@ -80,6 +85,18 @@ app.secret_key = os.environ.get("SECRET_KEY")
 # Setup logging
 # https://github.com/google/openhtf/issues/46
 # https://stackoverflow.com/questions/6386698/how-to-write-to-a-file-using-the-logging-python-module
+
+#### Auth test
+# TODO Fix this to use SQLite
+login_manager = LoginManager()
+login_manager.login_view = 'video_pages.login'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id)
+
+####
 
 ### New for traefik, shows real IPs
 
@@ -137,10 +154,17 @@ def setup_app():
 # TODO Test new log format, this should rotate the logs and remove old ones.
 #-----------------
 
-
-if logEnabled:
+if log_enabled:
     # Create a handler that rotates logs at midnight
-    handler = TimedRotatingFileHandler("flask.log", when='midnight', interval=1, backupCount=7)
+
+    # TODO Test this new setup in Docker, I moved the log file to logs/flask.log
+    # Altough this seems to get the folder from the root of this where requirements.txt is, it may be broken on docker.
+    # if not os.path.exists(os.path.join(os.getcwd() + "/" + "logs" + "/")):
+    #     print("Log directory doesn't exist, creating it for you.")
+    #     os.mkdir(os.path.join(os.getcwd() + "/" + "logs" + "/"))
+    #
+    # handler = TimedRotatingFileHandler(os.path.join(os.getcwd() + "/" + "logs" + "/" + "flask.log") , when='midnight', interval=1, backupCount=7)
+    handler = TimedRotatingFileHandler("flask.log" , when='midnight', interval=1, backupCount=7)
 
     # Set the format for the log messages
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -164,7 +188,7 @@ if logEnabled:
 #-----------------
 # Disable this for local network for testing.
 #-----------------
-if logEnabled:
+if log_enabled:
     @app.after_request
     def after_request(response):
         # TODO Why does this get the incorrect time on the VPS? Try to fix that.
@@ -178,7 +202,7 @@ if logEnabled:
         # Ok or not modified
         if string_response == "200" or string_response == "304":
             logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
-                        request.full_path, response.status)
+            request.full_path, response.status)
         else:
             logger.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
                          request.full_path, response.status)
@@ -201,7 +225,14 @@ def favicon():
 @app.route("/")
 def index():
     # client_ip = request.remote_addr
-    # logging.info(f"Request from IP: {client_ip}")
+    # Check for the forwarded header first
+    client_ip = request.headers.get('X-Forwarded-For')
+
+    # If it's not available, fallback to the remote address
+    if client_ip is None:
+        client_ip = request.remote_addr
+    logging.info(f"Request from IP: {client_ip}")
+
     return render_template("index.html")
     # return render_template("index.html", password=password_gen(20))
 
@@ -213,22 +244,26 @@ def index():
 #-----------------
 # Error pages
 #-----------------
-@app.errorhandler(404)
-
-# 404 not found
-def not_found(error):
-    return render_template("errors/404.html")
 
 # 403 access denied
 @app.errorhandler(403)
 def access_denied(error):
-    return render_template("errors/403.html")
+    return render_template("errors/403.html"), 403
 
+@app.errorhandler(404)
+# 404 not found
+def not_found(error):
+    return render_template("errors/404.html"), 404
+
+# 429 Rate limited
+@app.errorhandler(429)
+def ratelimit_error(error):
+    return render_template('errors/429.html'), 429
 
 #-----------------
 # Test pages
 #-----------------
-if passwordGenEnabled:
+if password_gen_enabled:
     @app.route("/password_gen")
     def password_gen_page():
         return render_template("password_gen.html", passwords=password_gen(20))

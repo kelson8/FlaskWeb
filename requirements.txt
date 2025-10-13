@@ -1,5 +1,9 @@
 flask
 flask-cors
+# New for auth testing
+flask-login
+flask-sqlalchemy
+flask-bcrypt
 # Probably switch this to using flask-MySQLdb and MySQLdb
 # To install mariadb: https://askubuntu.com/questions/1438002/mariadb-connector-c-is-not-installed
 # sudo apt install mariadb-client libmariadb3 libmariadb-dev

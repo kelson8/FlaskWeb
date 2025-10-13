@@ -23,6 +23,11 @@
     {% block content %}
     {% endblock %}
 
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('video_pages.logout') }}">Logout</a>
+
+    {% endif %}
+
     <br>
     <button id="darkmodeBtn"> Toggle dark mode <span class="change"> </span></button>
   </main>
