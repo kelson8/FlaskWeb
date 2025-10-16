@@ -18,7 +18,7 @@ downloads = Blueprint('downloads', __name__, template_folder='templates')
 # New for docker volume, SWITCH BACK!!!
 # upload_directory = "/mnt/docker_volume/flask_downloads"
 
-docker_enabled = False
+docker_enabled = True
 
 # For local testing
 if docker_enabled:
