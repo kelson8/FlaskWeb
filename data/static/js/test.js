@@ -1,20 +1,60 @@
 // Getting IP
 // Moved out of HTML, this uses my Flask route '/proxy-ip' and depending on which one is set in the test_pages.py, this gets either
 // the public IP behind Cloudflare or the public IP directly.
+//async function getIP() {
+//    try {
+//        const response = await fetch('/proxy-ip');
+//        const data = await response.json();
+//
+//        const ipElement = document.getElementById("ip");
+//
+//        // if (ipElement.hasAttribute('hidden')) {
+//        //     ipElement.removeAttribute('hidden');
+//        // } else {
+//        //     ipElement.setAttribute('hidden', "");
+//        // }
+//
+//        document.getElementById('ip').innerText = `Your public IP Address is: ${data.ip}`;
+//    } catch (error) {
+//        console.error('Error fetching IP address:', error);
+//    }
+//}
+
+// This checks if the IPv6 address is valid.
+function isValidIPv6(ip) {
+    const ipv6Pattern = /^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|::|[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{0,1}[0-9a-fA-F]{0,1}:[0-9a-fA-F]{1,4}$/;
+    return ipv6Pattern.test(ip);
+}
+
 async function getIP() {
     try {
         const response = await fetch('/proxy-ip');
         const data = await response.json();
 
-        const ipElement = document.getElementById("ip");
+        // const ipElement = document.getElementById("ip");
+        const ip4Element = document.getElementById("ipv4");
+        const ip6Element = document.getElementById("ipv6");
+        ip4Element.innerHTML = ""; // Clear previous content
+        ip6Element.innerHTML = ""; // Clear previous content
 
-        // if (ipElement.hasAttribute('hidden')) {
-        //     ipElement.removeAttribute('hidden');
-        // } else {
-        //     ipElement.setAttribute('hidden', "");
-        // }
+        // Check whether IPv4 and IPv6 are available and display accordingly
+        if (data.ipv4) {
+            ip4Element.innerHTML += `IPv4: ${data.ipv4}<br>`;
+        }
 
-        document.getElementById('ip').innerText = `Your public IP Address is: ${data.ip}`;
+        // Validate IPv6 address
+        if (data.ipv6 && isValidIPv6(data.ipv6)) {
+            ip6Element.innerHTML += `IPv6: ${data.ipv6}<br>`;
+          }
+//        } else if (data.ipv6) {
+//            // Fallback if fetched value is not a valid IPv6
+//            console.warn(`Received an invalid IPv6 address: ${data.ipv6}`);
+//        }
+
+        if (!data.ipv4 && !data.ipv6) {
+            ip4Element.innerHTML = 'No IPv4 addresses available.';
+            ip6Element.innerHTML = 'No IPv6 addresses available.';
+        }
     } catch (error) {
         console.error('Error fetching IP address:', error);
     }
@@ -187,14 +227,21 @@ function showHideEmailCheckbox() {
 
 function showHideIp() {
     let ipHiddenStatus = document.getElementById("show_or_hide_ip_checkbox");
-    let ipOutput = document.getElementById("ip");
+//    let ipOutput = document.getElementById("ip");
+    const ip4Output = document.getElementById("ipv4");
+    const ip6Output = document.getElementById("ipv6");
+
     let ipCheckboxText = document.getElementById("ip_status");
 
     if(!ipHiddenStatus.checked) {
-        ipOutput.removeAttribute('hidden');
+//        ipOutput.removeAttribute('hidden');
+        ip4Output.removeAttribute('hidden');
+        ip6Output.removeAttribute('hidden');
         ipCheckboxText.innerHTML = "Shown";
     } else {
-        ipOutput.setAttribute('hidden', '');
+//        ipOutput.setAttribute('hidden', '');
+        ip4Output.setAttribute('hidden', '');
+        ip6Output.setAttribute('hidden', '');
         ipCheckboxText.innerHTML = "Hidden";
     }
 }

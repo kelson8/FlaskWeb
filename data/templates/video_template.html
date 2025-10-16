@@ -8,13 +8,14 @@
   <p>{{ video_description }}</p>
 
   <div id="player-container">
-    <video id="player" controls>
-      {% if video_is_restricted %}
-        <source src="{{ url_for('video_pages.serve_video', filename=video_file) }}" type="video/mp4">
-      {% else %}
-        <source src="{{ url_for('static', filename='videos/' ~ video_file) }}" type="video/mp4">
-      {% endif %}
-    </video>
+      <video id="player" controls>
+        {% if video_is_restricted %}
+            <source src="{{ url_for('video_pages.serve_video', filename=video_file) }}" type="video/mp4">
+
+        {% else %}
+            <source src="{{ url_for('static', filename='videos/' ~ video_file) }}" type="video/mp4">
+        {% endif %}
+        </video>
   </div>
 </div>
 {% endblock %}

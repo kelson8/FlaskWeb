@@ -6,12 +6,13 @@ from time import strftime
 
 import requests
 from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response, send_file, \
-    send_from_directory, Response, abort
+    send_from_directory, Response, abort, session
 from flask_cors import CORS, cross_origin
 
 ## Auth test
-from flask_login import LoginManager, UserMixin
-from models import User, log_enabled, password_gen_enabled
+from flask_login import LoginManager, UserMixin, current_user
+
+from models import User, log_enabled, password_gen_enabled, db, bcrypt
 
 import os
 from os.path import join, dirname
@@ -26,6 +27,8 @@ from video_pages import video_pages
 from project_pages import project_pages
 from misc_pages import misc_pages
 
+from login_pages import login_pages
+
 ###
 # Downloads page
 from downloads import downloads
@@ -39,8 +42,6 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 
 # TODO Look into this later: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
-
-
 
 # Setup .env file for database password
 # https://stackoverflow.com/questions/41546883/what-is-the-use-of-python-dotenv
@@ -71,6 +72,9 @@ app.register_blueprint(downloads)
 # About pages
 app.register_blueprint(about_pages)
 
+# Login pages
+app.register_blueprint(login_pages)
+
 # Video pages
 app.register_blueprint(video_pages)
 # Projects pages
@@ -87,14 +91,34 @@ app.secret_key = os.environ.get("SECRET_KEY")
 # https://stackoverflow.com/questions/6386698/how-to-write-to-a-file-using-the-logging-python-module
 
 #### Auth test
-# TODO Fix this to use SQLite
+# TODO Test this in docker later on test VM
+# I have SQLite password storing salted and hashed passwords.
+# These can be generated and added into the DB with the 'util/add_user_to_db.py' file
 login_manager = LoginManager()
-login_manager.login_view = 'video_pages.login'
+login_manager.login_view = 'login_pages.login'
 login_manager.init_app(app)
+
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return User(user_id)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User(user_id)
+    # return User.query.get(int(user_id))
+    # https://stackoverflow.com/questions/75365194/sqlalchemy-2-0-version-of-user-query-get1-in-flask-sqlalchemy
+    # Fix for legacy errors
+    return db.session.get(User, user_id)
+
+db.init_app(app)
+bcrypt.init_app(app)
+
+# Create all database tables
+with app.app_context():
+    db.create_all()
+
+@app.context_processor
+def inject_user():
+    return dict(current_user=current_user)
 
 ####
 

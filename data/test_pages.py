@@ -1,5 +1,9 @@
+import json
+
 import requests
 from flask import Blueprint, render_template, request, Response
+
+from models import html_test_page_enabled
 from password_gen import password_gen
 
 # TODO Figure out how to move this one, for now it'll stay in flask_web.py.
@@ -30,9 +34,10 @@ cloudflare_ip_output = True
 # def test_page():
 #     return render_template("test.html")
 
-@test_pages.route("/test")
-def test_page():
-     return render_template("test.html")
+if html_test_page_enabled:
+    @test_pages.route("/test")
+    def test_page():
+         return render_template("test.html")
 
 #-----------------
 # Test pages
@@ -57,30 +62,60 @@ def test_page():
 #         if api_key != os.environ.get("IP_API_KEY"):
 #             abort(403)  # Forbidden
 
-# @app.route('/proxy-ip')
-# def proxy_ip():
-#     """Proxy endpoint for IP address retrieval."""
-#     api_key = os.environ.get("IP_API_KEY")  # Fetch from environment variable
-#     response = requests.get('https://api.ipify.org/?format=json', headers={'Authorization': f'Bearer {api_key}'})
-#     return Response(response.content, mimetype='application/json')
-
 # Switched to using Cloudflare headers.
-# This can be toggled to
+# This can be toggled to show the IP address behind Cloudflare, or directly such as locally testing.
+# TODO Make this support IPv6
+# @test_pages.route('/proxy-ip')
+# def proxy_ip():
+#     if not cloudflare_ip_output:
+#         """Proxy endpoint for IP address retrieval, this doesn't use Cloudflare."""
+#
+#         response = requests.get('https://api.ipify.org/?format=json')
+#
+#         return Response(response.content, mimetype='application/json')
+#     else:
+#         """Get the client's IP address."""
+#         # Fetch the original IP address from Cloudflare headers
+#         ip_address = request.headers.get('CF-Connecting-IP') or request.remote_addr
+#
+#         return {'ip': ip_address}
+#
+
+# TODO Test this later with IPv6
+# This only displays the IPv6 IP, and not the IPv4 IP.
+# TODO Fix this to display IPv4 and IPv6, if an IPv6 is available this will only get the IPv4 in the IPv6 slot.
 @test_pages.route('/proxy-ip')
 def proxy_ip():
     if not cloudflare_ip_output:
         """Proxy endpoint for IP address retrieval, this doesn't use Cloudflare."""
 
-        response = requests.get('https://api.ipify.org/?format=json')
+        # Fetch both IPv4 and IPv6
+        ipv4_response = requests.get('https://api.ipify.org/?format=json')
+        ipv6_response = requests.get('https://api64.ipify.org/?format=json')
 
-        return Response(response.content, mimetype='application/json')
+        # Combine both IPs into a single response
+        combined_response = {
+            'ipv4': ipv4_response.json().get('ip'),
+            'ipv6': ipv6_response.json().get('ip')
+        }
+
+        return Response(json.dumps(combined_response), mimetype='application/json')
+
     else:
-        """Get the client's IP address."""
-        # Fetch the original IP address from Cloudflare headers
-        ip_address = request.headers.get('CF-Connecting-IP') or request.remote_addr
+        """Get the client's IP address from Cloudflare headers."""
+        ipv4_address = request.headers.get('CF-Connecting-IP') or request.remote_addr
+        ipv6_address = request.headers.get('X-Forwarded-For')  # Assuming this could contain IPv6
 
-        return {'ip': ip_address}
+        # Handle cases where X-Forwarded-For may contain multiple IPs
+        if ipv6_address and ',' in ipv6_address:
+            ipv6_address = ipv6_address.split(',')[-1].strip()  # Get the last IP (most likely the client's)
 
+        combined_response = {
+            'ipv4': ipv4_address,  # Cloudflare usually provides the IPv4
+            'ipv6': ipv6_address  # Use the appropriate header for IPv6 if available
+        }
+
+        return Response(json.dumps(combined_response), mimetype='application/json')
 
 
 # This one isn't ready to be published yet

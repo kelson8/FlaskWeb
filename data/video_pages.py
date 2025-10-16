@@ -1,11 +1,15 @@
 import json
 
-from flask import Blueprint, render_template, abort, send_from_directory, current_app, request, redirect, url_for, flash
+from flask import Blueprint, render_template, abort, send_from_directory, current_app, request, redirect, url_for, flash, session
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+
+# from flask import Flask, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 import os
 
-from models import User, users
+from models import User, bcrypt, video_auth, params_video_serve
 
 video_pages = Blueprint('video_pages', __name__, template_folder='templates')
 
@@ -15,28 +19,52 @@ videos_json_file = 'json/videos.json'
 # Base directory where videos are stored
 # video_directory = os.path.join(flask_web.app.root_path, 'media', 'videos')
 
-##### Auth test
-## TODO Refactor this!! It is in models.py and flask_web.py, make this use SQLite and password salting/hashing
-# This is currently very insecure so it is disabled.
-# login_manager = LoginManager()
+# This should get the current video id from the file name, for use with going to the video when authenticated.
+def get_video_id_from_filename(filename):
+    with open(videos_json_file, 'r') as f:
+        videos = json.load(f)
 
-# If this is true, videos with the 'restricted' value set to true in the JSON will require login.
-video_auth = False
+    for video_id, video in videos.items():
+        if video['file'] == filename:
+            return video_id
 
-#####
+    return None
 
 #----------------
 # Video pages
 #----------------
 
 # Main Video page
-# TODO Setup to need auth to browse certain files.
 @video_pages.route("/videos")
+
+# def video_main_page():
+    # return render_template("videos.html")
+
 def video_main_page():
-    return render_template("videos.html")
+    # Load videos from JSON file
+    try:
+        with open(videos_json_file, 'r') as f:
+            videos = json.load(f)
+    except FileNotFoundError:
+        abort(500, "Video data not found.")
+    except json.JSONDecodeError:
+        abort(500, "Error decoding video data.")
+
+    return render_template('video_list.html', videos=videos)  # Make sure 'videos' is passed!
 
 @video_pages.route('/video/<video_id>')
 def video_page(video_id):
+# Made this somewhat mimic the YouTube /watch?v syntax
+# Gets the video_id like this: http://localhost:8081/watch?v=1
+# Replaces old method which does it like this: http://localhost:8081/video/1
+
+# @video_pages.route('/watch')
+# def video_page():
+#     if params_video_serve:
+#         video_id = request.args.get('v')
+    # if not video_id:
+    #     abort(400, "Video ID is required.")
+
     # Load videos from JSON file
     try:
         with open(videos_json_file, 'r') as f:
@@ -55,13 +83,15 @@ def video_page(video_id):
     # print(f"Restricted: {video_data.get('restricted')}, Authenticated: {current_user.is_authenticated}")
 
     # Adds auth for videos here
-    # TODO Fix this to use hashed and salted passwords in a SQLite file.
     video_restricted = video_data.get('restricted')
     if video_auth:
-
         if video_restricted and not current_user.is_authenticated:
+            flash('You must be logged in to view this video.', 'danger')
+            session['next'] = url_for('video_pages.video_page', video_id=video_id)  # Store video URL
+            # print("Next video URL set in session:", session['next'])  # Debugging line
+            # session['next'] = url_for('video_pages.video_page', v=video_id)  # Store video URL]
             # print(str(video_restricted) + " not logged in")
-            return redirect(url_for('video_pages.login'))
+            return redirect(url_for('login_pages.login'))
 
     return render_template('video_template.html',
                            video_title=video_data['title'],
@@ -80,29 +110,14 @@ def serve_video(filename):
     if not os.path.isfile(video_path):
         abort(404)
 
+    # Add video auth check here, if the video requires auth this disables direct access of the files.
+    if video_auth:
+        if not current_user.is_authenticated:
+            return redirect(url_for('login_pages.login'))
+
     return send_from_directory(video_directory, filename)
 
-#### Auth Test
-# I got this working, this needs to have logins implemented in SQLite and with password salting/hashing
-# @video_pages.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if request.method == 'POST':
-#         username = request.form['username']
-#         password = request.form['password']
-#         if username in users and users[username] == password:
-#             user = User(username)
-#             login_user(user)
-#             return redirect(url_for('video_pages.video_main_page'))
-#         flash('Invalid username or password.')
-#     return render_template('login.html')
-#
-# @video_pages.route('/logout')
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect(url_for('video_pages.login'))
 
-####
 
 
 #-----------------

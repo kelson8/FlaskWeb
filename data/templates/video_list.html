@@ -1,0 +1,35 @@
+{% extends "_base.html" %}
+
+{% block title %}Video List{% endblock %}
+
+{% block content %}
+    <div class="mt-4 p-5 bg-secondary text-white rounded">
+        <h1 class="main_headers"> Videos </h1>
+        <p> Welcome to the video page, I will disable this if I get close to my 1TB monthly bandwidth cap for my vps. </p>
+        <p> This page gets automatically generated from the <strong>videos.json</strong> file on the site.</p>
+
+        <!-- TODO Setup restricted section, only display if logged in. -->
+        <ul>
+        {% for video_id, video in videos.items() %}
+            {% if not video.restricted %}
+                <li><a href="{{ url_for('video_pages.video_page', video_id=video_id) }}">{{ video.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+
+        {% if current_user.is_authenticated %}
+            <h2>Restricted Videos</h2>
+            <ul>
+            {% for video_id, video in videos.items() %}
+                {% if video.restricted %}
+                    <li><a href="{{ url_for('video_pages.video_page', video_id=video_id) }}">{{ video.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>You need to log in to view restricted videos.</p>
+        {% endif %}
+
+        </ul>
+    </div>
+{% endblock %}

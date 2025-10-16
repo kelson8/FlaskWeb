@@ -1,11 +1,9 @@
 {% extends "_base.html" %}
 
-{% block title %}Test Page{% endblock %}
+{% block title %}Login Page{% endblock %}
 
 {% block content %}
 <div class="mt-4 p-5 bg-secondary text-white rounded">
-    <h1 class="main_headers">Login</h1>
-
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>
@@ -15,6 +13,13 @@
             </ul>
         {% endif %}
     {% endwith %}
+
+    <h1 class="main_headers">Login</h1>
+    <p> This login page will mostly just be for the videos on this site. <br>
+        I may also have other stuff for this, sign-ups are disabled. </p>
+    <hr>
+
+
 
     <form method="post">
         <input type="text" name="username" placeholder="Username" required>

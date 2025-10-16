@@ -1,9 +1,11 @@
-from flask import Blueprint, render_template, jsonify, request, abort, send_from_directory, send_file
+from flask import Blueprint, render_template, jsonify, request, abort, send_from_directory, send_file, url_for
 import os
 import requests
 
 
 import logging
+
+from flask_login import current_user
 
 downloads = Blueprint('downloads', __name__, template_folder='templates')
 
@@ -11,13 +13,18 @@ downloads = Blueprint('downloads', __name__, template_folder='templates')
 
 # This seems to work fine for docker, I don't think the other one is needed
 # upload_directory = "./downloads/"
-upload_directory = "/downloads/"
+# upload_directory = "/downloads/"
 
 # New for docker volume, SWITCH BACK!!!
 # upload_directory = "/mnt/docker_volume/flask_downloads"
 
-# Not tested.
-upload_directory_docker = "/app/downloads"
+docker_enabled = False
+
+# For local testing
+if docker_enabled:
+    upload_directory = "/downloads/"
+else:
+    upload_directory = "D:\linode\FlaskWeb\data\downloads"
 
 if not os.path.exists(upload_directory):
     os.makedirs(upload_directory)
@@ -32,10 +39,21 @@ if not os.path.exists(upload_directory):
 #             files.append(file_name)
 #     return jsonify(files)
 
+
+
+# TODO Fix this to properly work when logged in, display files in sub folders.
 @downloads.route("/download")
 def list_files():
-    """ List files on the server. -- Disabled """
-    return render_template("errors/file-error.html")
+# def list_files(sub_path=""):
+    """ List files on the server. -- Enabled for logged in users only """
+
+    if current_user.is_authenticated:
+        files = os.listdir(upload_directory)
+        # Create full URLs for each file if necessary
+        file_urls = [url_for('downloads.get_file', path=file) for file in files]
+        return render_template('errors/file-error.html', files=file_urls)
+    else:
+        return render_template("errors/file-error.html")
 
 
 @downloads.route("/download/<path:path>")
