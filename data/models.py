@@ -11,7 +11,7 @@ bcrypt = Bcrypt()
 password_gen_enabled = False
 
 # Toggle logging on/off here, if off it redirects log output to the console in PyCharm.
-log_enabled = False
+log_enabled = True
 
 # Toggle the /test page on and off here.
 html_test_page_enabled = True
