@@ -12,7 +12,9 @@ from flask_cors import CORS, cross_origin
 ## Auth test
 from flask_login import LoginManager, UserMixin, current_user
 
-from models import User, log_enabled, password_gen_enabled, db, bcrypt
+from models import User, db, bcrypt
+from config import log_enabled, password_gen_enabled
+
 
 import os
 from os.path import join, dirname

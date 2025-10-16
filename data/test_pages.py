@@ -3,7 +3,7 @@ import json
 import requests
 from flask import Blueprint, render_template, request, Response
 
-from models import html_test_page_enabled
+from config import html_test_page_enabled
 from password_gen import password_gen
 
 # TODO Figure out how to move this one, for now it'll stay in flask_web.py.

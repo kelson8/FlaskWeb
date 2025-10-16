@@ -9,7 +9,7 @@ from flask_bcrypt import Bcrypt
 
 import os
 
-from models import User, bcrypt, video_auth, params_video_serve
+from config import video_auth, params_video_serve
 
 video_pages = Blueprint('video_pages', __name__, template_folder='templates')
 

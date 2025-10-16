@@ -124,6 +124,9 @@ I may use mariadb for the website also in the future.
 This is running with the waitress WGSI Server.
 For testing, it can be started directly with the `app.run` in `data/flask_web.py`
 
+# Credits
+Credit goes to [https://github.com/coliff/dark-mode-switch](https://github.com/coliff/dark-mode-switch) for the new dark mode switch that I have modified, and for the script located here: [main/data/static/js/dark-mode-switch.js](https://github.com/kelson8/FlaskWeb/blob/main/data/static/js/dark-mode-switch.js)
+
 # License
 This Flask project is licensed under the GPLv3 license.
 
