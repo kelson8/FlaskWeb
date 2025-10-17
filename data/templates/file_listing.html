@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+
+{% block title %}
+    File List
+{% endblock %}
+
+{% block content %}
+    <div class="mt-4 p-5 bg-secondary text-white rounded">
+
+        {% if current_user.is_authenticated %}
+        <p>File List:</p>
+        <ul>
+            {% for file in files %}
+                <li><a href="{{ file }}">{{ file }}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% endif %}
+    </div>
+{% endblock %}

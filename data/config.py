@@ -1,18 +1,36 @@
+import os
+
 class Config:
+    # This switches certain features on for the VPS, such as docker_enabled, disabling tests and other things.
+    is_vps_enabled = os.environ.get('VPS_ENABLED', 'False') == 'True'
+
+    is_docker_enabled = os.environ.get('DOCKER_ENABLED', 'False') == 'True'
+
     # Disable the password generator for now.
     password_gen_enabled = False
 
     # Toggle logging on/off here, if off it redirects log output to the console in PyCharm.
-    log_enabled = True
+    if is_vps_enabled:
+        log_enabled = True
+    else:
+        log_enabled = False
+
+    # Change the file download directory for the app here
+    # If is_vps_enabled is True, then this has no effect
+    download_directory = "D:\linode\FlaskWeb\data\downloads"
 
     # Toggle this on/off for docker being enabled, mostly modifies the paths
+
     docker_enabled = False
 
     # This is mostly logs for debugging.
     extra_logs = False
 
     # Toggle the /test page on and off here.
-    html_test_page_enabled = True
+    if is_vps_enabled:
+        html_test_page_enabled = False
+    else:
+        html_test_page_enabled = True
 
     ##### Auth test
     ## I mostly have this working, I need to figure out how to make it redirect properly to the video when logged in.

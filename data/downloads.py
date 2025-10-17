@@ -19,10 +19,11 @@ downloads = Blueprint('downloads', __name__, template_folder='templates')
 # upload_directory = "/mnt/docker_volume/flask_downloads"
 
 # For local testing
-if Config.docker_enabled:
+# if Config.docker_enabled:
+if Config.is_docker_enabled:
     upload_directory = "/downloads/"
 else:
-    upload_directory = "D:\linode\FlaskWeb\data\downloads"
+    upload_directory = Config.download_directory
 
 if not os.path.exists(upload_directory):
     os.makedirs(upload_directory)
@@ -39,6 +40,7 @@ if not os.path.exists(upload_directory):
 
 
 @downloads.route("/download")
+# @downloads.route("/download/<path:sub_path>")
 def list_files():
 # def list_files(sub_path=""):
     """ List files on the server. -- Enabled for logged in users only """
@@ -47,7 +49,20 @@ def list_files():
         files = os.listdir(upload_directory)
         # Create full URLs for each file if necessary
         file_urls = [url_for('downloads.get_file', path=file) for file in files]
-        return render_template('errors/file-error.html', files=file_urls)
+        return render_template("file_listing.html", files=file_urls)
+
+    # TODO Fix this to work, it should traverse the other directories if logged in, and display subfolder contents.
+    # if current_user.is_authenticated:
+    #     full_path = os.path.join(upload_directory, sub_path)
+    #
+    #     file_urls = []
+    #
+    #     for root, dirs, files in os.walk(full_path):
+    #         for file in files:
+    #             file_path = os.path.join(root, file)
+    #             rel_path = os.path.relpath(file_path, upload_directory)
+    #             file_urls.append(('downloads.get_file', file_path))
+    #     return render_template("file_listing.html", file_urls=file_urls)
     else:
         return render_template("errors/file-error.html")
 

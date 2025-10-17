@@ -23,5 +23,8 @@ EXPOSE 81
 # Set docker enabled to true, for flask_web.py
 ENV DOCKER_ENABLED=True
 
+# Set to true if running on the public VPS, instead of the dev servers on the LAN.
+ENV VPS_ENABLED=True
+
 # Moved to compose
 #CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=8000"]

@@ -2,30 +2,17 @@
 
 
 {% block title %}
-    {% if current_user.is_authenticated %}
-        File List
-    {% else %}
-        File Error
-    {% endif %}
+    File Error
 {% endblock %}
 
 
 {% block content %}
     <!-- <div class="mt-4 p-5 bg-success text-white rounded"> -->
       <div class="mt-4 p-5 bg-secondary text-white rounded">
-          {% if current_user.is_authenticated %}
-        <p>File List:</p>
-        <ul>
-            {% for file in files %}
-                <li><a href="{{ file }}">{{ file }}</a></li>
-            {% endfor %}
-        </ul>
-          {% else %}
                 <h1 class="main_headers"> Error: </h1>
             <p class="main_headers"> You need to specify a file to download!
       <br>
         if you made it here by mistake, click <a href="/">Here</a> to get back to the main page.</p>
-          {% endif %}
 
 
     </div>
