@@ -5,6 +5,9 @@ class Config:
     # Toggle logging on/off here, if off it redirects log output to the console in PyCharm.
     log_enabled = True
 
+    # Toggle this on/off for docker being enabled, mostly modifies the paths
+    docker_enabled = False
+
     # This is mostly logs for debugging.
     extra_logs = False
 

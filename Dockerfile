@@ -4,14 +4,6 @@ FROM python:3.12.11-slim-bookworm
 # https://smirnov-am.github.io/running-flask-in-production-with-docker/
 # https://blog.logrocket.com/build-deploy-flask-app-using-docker/
 
-# Todo Re-enable database support.
-
-# I will need to create the passwords table before this works, also I didn't figure out how to do
-# mariadb in the container, it kept giving errors but it started up.
-
-# I got the container working by disabling the database connection, I think it's just not loading the values from
-# the .env file or it needs the table created.
-
 WORKDIR /app
 
 # https://askubuntu.com/questions/1438002/mariadb-connector-c-is-not-installed
@@ -21,16 +13,15 @@ WORKDIR /app
 
 # Install pip requirements
 COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 # RUN chmod +x ./run.sh
 
 EXPOSE 81
 
-# I never did get these working.
-# ENTRYPOINT ["./entrypoint.sh"]
-# CMD ["./run.sh"]
+# Set docker enabled to true, for flask_web.py
+ENV DOCKER_ENABLED=True
 
 # Moved to compose
 #CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=8000"]

@@ -15,8 +15,20 @@ from flask_login import LoginManager, UserMixin, current_user
 from models import User, db, bcrypt
 # from config import log_enabled, password_gen_enabled, extra_logs
 from config import Config
-
 import os
+
+# New for running the app with init
+# Use the environment variable to determine if you're in Docker
+# is_docker = os.environ.get('DOCKER_ENABLED', 'False') == 'True'
+
+# TODO Fix this later
+# if is_docker:
+#     from app import create_app  # Import from app in Docker
+# else:
+#     from data import create_app
+
+# from data import create_app
+
 from os.path import join, dirname
 from dotenv import load_dotenv
 
@@ -51,6 +63,9 @@ dotenv_path = join(dirname(__file__), ".env")
 load_dotenv(dotenv_path)
 
 # Set up the app, and login manager
+## New, needs __init__.py working in docker
+# app = create_app()
+
 app = Flask(__name__)
 
 ## New for SQLite username/password DB.
@@ -153,27 +168,27 @@ app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
 # New loading pages test
 #-----------------
 
-def register_blueprints():
-    # Split the app into multiple python files
-    # https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files
-    app.register_blueprint(test_pages)
-    # Downloads page
-    app.register_blueprint(downloads)
-    # Form test page
-    # app.register_blueprint(form_test)
+# def register_blueprints():
+#     # Split the app into multiple python files
+#     # https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files
+#     app.register_blueprint(test_pages)
+#     # Downloads page
+#     app.register_blueprint(downloads)
+#     # Form test page
+#     # app.register_blueprint(form_test)
 
-    # About pages
-    app.register_blueprint(about_pages)
+#     # About pages
+#     app.register_blueprint(about_pages)
 
-    # Video pages
-    app.register_blueprint(video_pages)
-    # Projects pages
-    app.register_blueprint(project_pages)
-    ###
+#     # Video pages
+#     app.register_blueprint(video_pages)
+#     # Projects pages
+#     app.register_blueprint(project_pages)
+#     ###
 
 # TODO Figure out how to use this with WGSI or Waitress Server for VPS.
-def setup_app():
-    register_blueprints()
+# def setup_app():
+    # register_blueprints()
 
 #-----------------
 # This toggles the logging to file on and off, useful for debugging without writing to the logs.

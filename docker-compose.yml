@@ -15,29 +15,6 @@ services:
       # - 5000:5000
     restart: unless-stopped
     command: waitress-serve --port 81 flask_web:app
-#    depends_on:
-#      - mariadb_flask
-
-  # Disabled mariadb database until I'm ready to use it.
-  #mariadb_flask:
-    # Using latest version from https://hub.docker.com/r/linuxserver/mariadb/tags
-  #  image: lscr.io/linuxserver/mariadb:10.11.6
-  #  container_name: mariadb_flask
-  #  environment:
-  #    - PUID=1000
-  #    - PGID=1000
-  #    - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
-  #    - MYSQL_DATABASE=${DATABASE_NAME}
-  #    - MYSQL_USER=${DATABASE_USERNAME}
-  #    - MYSQL_PASSWORD=${DATABASE_PASSWORD}
-#      - TZ=America/New_York
-#    networks:
-#      - testing
-#    volumes:
-#      - ./config:/config
-#      - /etc/timezone:/etc/timezone:ro
-#      - /etc/localtime:/etc/localtime:ro
-#    restart: unless-stopped
 
 networks:
   testing:

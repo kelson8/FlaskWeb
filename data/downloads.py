@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, jsonify, request, abort, send_from
 import os
 import requests
 
-
 import logging
+from config import Config
 
 from flask_login import current_user
 
@@ -18,10 +18,8 @@ downloads = Blueprint('downloads', __name__, template_folder='templates')
 # New for docker volume, SWITCH BACK!!!
 # upload_directory = "/mnt/docker_volume/flask_downloads"
 
-docker_enabled = True
-
 # For local testing
-if docker_enabled:
+if Config.docker_enabled:
     upload_directory = "/downloads/"
 else:
     upload_directory = "D:\linode\FlaskWeb\data\downloads"
