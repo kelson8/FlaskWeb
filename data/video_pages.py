@@ -64,8 +64,6 @@ def handle_video_view(video_data, video_id):
                 print("Next video URL set in session:", session['next'])
             return redirect(url_for('login_pages.login'))
 
-    print(f"params_video_serve: {Config.params_video_serve}")
-
     return render_template('video_template.html',
                            video_title=video_data['title'],
                            video_description=video_data['description'],
