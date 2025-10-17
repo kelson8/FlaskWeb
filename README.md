@@ -47,8 +47,9 @@ For testing locally or developing this site, run like this:
 * https://docs.docker.com/get-docker/
 1. First rename the .env.example to .env
 2. Modify the .env file to have your database info and secret key
-3. Then change the network and volumes in the docker-compose.yml
-4. To start: docker-compose up -d
+3. Copy the .env file to the `data` folder
+4. Then change the network and volumes in the docker-compose.yml
+5. To start: docker-compose up -d
 
 ## Modifying the site
 This website now uses a template system for videos [video_template.html](https://github.com/kelson8/FlaskWeb/blob/main/data/templates/video_template.html), and for the base index.html [_base.html](https://github.com/kelson8/FlaskWeb/blob/main/data/templates/_base.html)
@@ -112,7 +113,6 @@ def rpi_pico_projects_page():
     return render_template("/projects/rpi-pico.html")
 ```
 
-
 # About
 This website has docker support.
 
@@ -123,6 +123,55 @@ I may use mariadb for the website also in the future.
 
 This is running with the waitress WGSI Server.
 For testing, it can be started directly with the `app.run` in `data/flask_web.py`
+
+----
+
+I have now moved a few variables to the .env and config.py files.
+
+If using docker, the .env.example will need to be moved from the root of the project, into the `data` folder with the name `.env`.
+
+----
+
+**Variable list in files:**
+
+**config.py file**
+
+| Value                  | Info                                                                                                                                    |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| password_gen_enabled   | If this is True, it enables the `/password_gen` route.                                                                                  |
+| log_enabled            | This enables logging to the `flask.log` file if turned on.                                                                              |
+| download_directory     | If not using docker, set this to your Flask download directory for the site.                                                            |
+| extra_logs             | This enables some extra logging that shouldn't be enabled in production.                                                                |
+| html_test_page_enabled | If this is enabled, it enables the `/test` route.                                                                                       |
+| video_auth             | This makes videos with `restricted` set to true in `video.json` require a login.                                                        |
+| params_video_serve     | This changes the video format from `/video/videoid` to `/watch?v=videoid` in the url path, so far this is broken for restricted videos. |
+
+----
+
+**.env file**
+
+Variables that can be changed in the .env:
+
+| Value              | Info                                                                                                                            |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| SECRET_KEY         | Required for login, and other items on the site. Set this with the secret key, generate with `data/util/generate_secret_key.py` |
+ | IP_API_KEY         | This isn't currently in use, I may try to setup an API for the `/proxy-ip` endpoint in Flask                                    |
+ | DOCKER_ENABLED     | This changes certain paths, such as the download folder. Also, this gets enabled in the Dockerfile automatically.               |
+ | VPS_ENABLED        | If this is set to `True`, it disables certain test items, and enables logging.                                                  |
+ | DOWNLOAD_DIRECTORY | If not using docker, set this to the path of the download directory for the app, such as `D:\downloads`                         |
+
+
+
+Variables that may be removed in the future (These were once in use for MySQL):
+
+| Value                  | Info                |
+|------------------------|---------------------|
+| DATABASE_HOST          | MySQL DB host       |
+| DATABASE_USERNAME      | MySQL DB username   |
+| DATABASE_PASSWORD      | MySQL DB password   |
+| DATABASE_ROOT_PASSWORD | MySQL root password |
+| DATABASE_NAME          | MySQL DB name       |
+
 
 # Credits
 Credit goes to [https://github.com/coliff/dark-mode-switch](https://github.com/coliff/dark-mode-switch) for the new dark mode switch that I have modified, and for the script located here: [main/data/static/js/dark-mode-switch.js](https://github.com/kelson8/FlaskWeb/blob/main/data/static/js/dark-mode-switch.js)

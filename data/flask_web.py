@@ -53,6 +53,8 @@ from downloads import downloads
 from waitress import serve
 
 import logging
+from logging_config import setup_logging
+
 from logging.handlers import TimedRotatingFileHandler
 
 # TODO Look into this later: https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
@@ -176,26 +178,7 @@ app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
 #-----------------
 
 if Config.log_enabled:
-    # Create a handler that rotates logs at midnight
-
-    # TODO Test this new setup in Docker, I moved the log file to logs/flask.log
-    # Altough this seems to get the folder from the root of this where requirements.txt is, it may be broken on docker.
-    # if not os.path.exists(os.path.join(os.getcwd() + "/" + "logs" + "/")):
-    #     print("Log directory doesn't exist, creating it for you.")
-    #     os.mkdir(os.path.join(os.getcwd() + "/" + "logs" + "/"))
-    #
-    # handler = TimedRotatingFileHandler(os.path.join(os.getcwd() + "/" + "logs" + "/" + "flask.log") , when='midnight', interval=1, backupCount=7)
-    handler = TimedRotatingFileHandler("flask.log" , when='midnight', interval=1, backupCount=7)
-
-    # Set the format for the log messages
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-
-    # Get the logger
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)  # Set the logging level to INFO
-    logger.addHandler(handler)  # Add the handler to the logger
-
+    logger = setup_logging()
 
 #-----------------
 # Logging

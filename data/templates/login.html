@@ -15,18 +15,33 @@
     {% endwith %}
 
     <h1 class="main_headers">Login</h1>
-    <p> This login page will mostly just be for the videos on this site. <br>
-        I may also have other stuff for this, sign-ups are disabled. </p>
+    <p>This login page will mostly just be for the videos on this site.<br>
+        I may also have other stuff for this, sign-ups are disabled.</p>
     <hr>
 
+    <form method="POST">
+        <!-- CSRF Token -->
+        {{ form.hidden_tag() }}
 
+        <!-- Updated to use Flask WTF for forms. -->
+        <div>
+            {{ form.username.label }}<br>
+            {{ form.username(placeholder='Username') }}<br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
 
-    <form method="post">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+        <div>
+            {{ form.password.label }}<br>
+            {{ form.password(placeholder='Password') }}<br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <button type="submit">{{ form.submit() }}</button>
     </form>
-
 </div>
 
 {% endblock %}
