@@ -178,6 +178,10 @@ app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
 #-----------------
 
 if Config.log_enabled:
+    # Disable Flask's default logging
+    # This is handled by my application.
+    app.logger.disabled = True
+    app.logger.propagate = False
     logger = setup_logging()
 
 #-----------------
@@ -195,7 +199,6 @@ if Config.log_enabled:
 if Config.log_enabled:
     @app.after_request
     def after_request(response):
-        # TODO Why does this get the incorrect time on the VPS? Try to fix that.
         timestamp = strftime('[%Y-%b-%d %H:%M]')
         # https://stackoverflow.com/questions/15670763/strftime-gets-wrong-date
         # timestamp = strftime('[%a, %d %b %Y %I:%M:%S %p %Z]')
@@ -204,10 +207,10 @@ if Config.log_enabled:
         string_response = str.split(response.status)[0]
 
         # Ok or not modified
-        if string_response == "200" or string_response == "304":
+        if string_response.startswith("2") or string_response.startswith("3"):  # Success or redirection
             logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
             request.full_path, response.status)
-        else:
+        elif string_response.startswith("4") or string_response.startswith("5"):  # Client or server errors
             logger.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
                          request.full_path, response.status)
         return response

@@ -1,4 +1,4 @@
-import logging
+from time import strftime
 
 from flask import Blueprint, render_template, abort, send_from_directory, current_app, request, redirect, url_for, flash, session
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -34,6 +34,9 @@ def login():
 
     form = LoginForm()  # Create an instance of the form
 
+    # Time stamp for logs
+    timestamp = strftime('[%Y-%b-%d %H:%M:%S]')
+
     next_video = session.pop('next', url_for('video_pages.video_main_page'))
 
     if form.validate_on_submit():  # Validate the form input
@@ -47,14 +50,12 @@ def login():
             session['user_id'] = user.id
             login_user(user)
 
-            logger.info(f"Successful login for user: {username} from IP: {user_ip}")
-            # print(f"Successful login for user: '{username}' from IP: {user_ip}")
+            logger.info(f"{timestamp} Successful login for user: {username} from IP: {user_ip}")
             flash('Login Successful!', 'success')
             return redirect(next_video)
         else:
 
-            logger.info(f"Login failed for user: '{username}' from IP: {user_ip}")
-            # print(f"Login failed for user: '{username}' from IP: {user_ip}")
+            logger.info(f"{timestamp} Login failed for user: '{username}' from IP: {user_ip}")
             flash('Login Failed. Please check your credentials.', 'danger')
 
     return render_template('login.html', form=form)  # Pass the form to the template
