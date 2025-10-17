@@ -22,5 +22,6 @@ class Config:
     #####
 
     ## Video stuff
-    # Set this to true to switch the video format from /video/videoID to /watch?v= Like YouTube, this is incomplete and is disabled.
+    # Set this to true to switch the video format from /video/videoID to /watch?v= Like YouTube.
+    # This pretty much works fine now, but I have it turned off.
     params_video_serve = False
