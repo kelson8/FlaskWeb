@@ -13,8 +13,8 @@ from flask_cors import CORS, cross_origin
 from flask_login import LoginManager, UserMixin, current_user
 
 from models import User, db, bcrypt
-from config import log_enabled, password_gen_enabled
-
+# from config import log_enabled, password_gen_enabled, extra_logs
+from config import Config
 
 import os
 from os.path import join, dirname
@@ -180,7 +180,7 @@ def setup_app():
 # TODO Test new log format, this should rotate the logs and remove old ones.
 #-----------------
 
-if log_enabled:
+if Config.log_enabled:
     # Create a handler that rotates logs at midnight
 
     # TODO Test this new setup in Docker, I moved the log file to logs/flask.log
@@ -214,7 +214,7 @@ if log_enabled:
 #-----------------
 # Disable this for local network for testing.
 #-----------------
-if log_enabled:
+if Config.log_enabled:
     @app.after_request
     def after_request(response):
         # TODO Why does this get the incorrect time on the VPS? Try to fix that.
@@ -257,7 +257,10 @@ def index():
     # If it's not available, fallback to the remote address
     if client_ip is None:
         client_ip = request.remote_addr
-    logging.info(f"Request from IP: {client_ip}")
+
+
+    if Config.extra_logs:
+        logging.info(f"Request from IP: {client_ip}")
 
     return render_template("index.html")
     # return render_template("index.html", password=password_gen(20))
@@ -270,6 +273,11 @@ def index():
 #-----------------
 # Error pages
 #-----------------
+
+# 400 bad request
+@app.errorhandler(400)
+def access_denied(error):
+    return render_template("errors/400.html"), 400
 
 # 403 access denied
 @app.errorhandler(403)
@@ -289,7 +297,7 @@ def ratelimit_error(error):
 #-----------------
 # Test pages
 #-----------------
-if password_gen_enabled:
+if Config.password_gen_enabled:
     @app.route("/password_gen")
     def password_gen_page():
         return render_template("password_gen.html", passwords=password_gen(20))

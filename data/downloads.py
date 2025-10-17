@@ -40,8 +40,6 @@ if not os.path.exists(upload_directory):
 #     return jsonify(files)
 
 
-
-# TODO Fix this to properly work when logged in, display files in sub folders.
 @downloads.route("/download")
 def list_files():
 # def list_files(sub_path=""):

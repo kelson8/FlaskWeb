@@ -9,7 +9,7 @@ from flask_bcrypt import Bcrypt
 
 import os
 
-from config import video_auth, params_video_serve
+from config import Config
 
 video_pages = Blueprint('video_pages', __name__, template_folder='templates')
 
@@ -29,6 +29,49 @@ def get_video_id_from_filename(filename):
             return video_id
 
     return None
+
+def load_video_data(video_id):
+    # Load videos from JSON file
+    try:
+        with open(videos_json_file, 'r') as f:
+            videos = json.load(f)
+    except FileNotFoundError:
+        abort(500, "Video data not found.")
+    except json.JSONDecodeError:
+        abort(500, "Error decoding video data.")
+
+    video_data = videos.get(video_id)
+
+    if not video_data:
+        abort(404)
+
+    return video_data
+
+def handle_video_view(video_data, video_id):
+    video_restricted = video_data.get('restricted')
+
+    # Handles video auth, this can be disabled in the config.
+    if Config.video_auth:
+        if video_restricted and not current_user.is_authenticated:
+            flash('You must be logged in to view this video.', 'danger')
+
+            if Config.params_video_serve:
+                session['next'] = url_for('video_pages.watch_video', v=video_id)
+            else:
+                session['next'] = url_for('video_pages.video_page', video_id=video_id)
+
+            if Config.extra_logs:
+                print("Next video URL set in session:", session['next'])
+            return redirect(url_for('login_pages.login'))
+
+    print(f"params_video_serve: {Config.params_video_serve}")
+
+    return render_template('video_template.html',
+                           video_title=video_data['title'],
+                           video_description=video_data['description'],
+                           video_file=video_data['file'],
+                           video_is_restricted=video_restricted,
+                           params_video_serve=Config.params_video_serve)
 
 #----------------
 # Video pages
@@ -50,7 +93,8 @@ def video_main_page():
     except json.JSONDecodeError:
         abort(500, "Error decoding video data.")
 
-    return render_template('video_list.html', videos=videos)  # Make sure 'videos' is passed!
+    return render_template('video_list.html', videos=videos,
+                           params_video_serve=Config.params_video_serve)
 
 @video_pages.route('/video/<video_id>')
 def video_page(video_id):
@@ -58,23 +102,12 @@ def video_page(video_id):
 # Gets the video_id like this: http://localhost:8081/watch?v=1
 # Replaces old method which does it like this: http://localhost:8081/video/1
 
-# @video_pages.route('/watch')
-# def video_page():
-#     if params_video_serve:
-#         video_id = request.args.get('v')
-    # if not video_id:
-    #     abort(400, "Video ID is required.")
 
-    # Load videos from JSON file
-    try:
-        with open(videos_json_file, 'r') as f:
-            videos = json.load(f)
-    except FileNotFoundError:
-        abort(500, "Video data not found.")
-    except json.JSONDecodeError:
-        abort(500, "Error decoding video data.")
+    if not video_id:
+        abort(400, "Video ID is required.")
 
-    video_data = videos.get(video_id)
+    # video_data = videos.get(video_id)
+    video_data = load_video_data(video_id)
 
     if not video_data:
         abort(404)
@@ -83,21 +116,20 @@ def video_page(video_id):
     # print(f"Restricted: {video_data.get('restricted')}, Authenticated: {current_user.is_authenticated}")
 
     # Adds auth for videos here
-    video_restricted = video_data.get('restricted')
-    if video_auth:
-        if video_restricted and not current_user.is_authenticated:
-            flash('You must be logged in to view this video.', 'danger')
-            session['next'] = url_for('video_pages.video_page', video_id=video_id)  # Store video URL
-            # print("Next video URL set in session:", session['next'])  # Debugging line
-            # session['next'] = url_for('video_pages.video_page', v=video_id)  # Store video URL]
-            # print(str(video_restricted) + " not logged in")
-            return redirect(url_for('login_pages.login'))
+    return handle_video_view(video_data, video_id)
 
-    return render_template('video_template.html',
-                           video_title=video_data['title'],
-                           video_description=video_data['description'],
-                           video_file=video_data['file'],
-                           video_is_restricted=video_restricted)
+@video_pages.route('/watch')
+def watch_page():
+    if Config.params_video_serve:
+        video_id = request.args.get('v')
+        if not video_id:
+            abort(400, "Video ID is required.")
+
+        video_data = load_video_data(video_id)
+
+        return handle_video_view(video_data, video_id)
+    return abort(404)
+
 
 @video_pages.route('/media/videos/<path:filename>')
 # @login_required
@@ -111,7 +143,7 @@ def serve_video(filename):
         abort(404)
 
     # Add video auth check here, if the video requires auth this disables direct access of the files.
-    if video_auth:
+    if Config.video_auth:
         if not current_user.is_authenticated:
             return redirect(url_for('login_pages.login'))
 

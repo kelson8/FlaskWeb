@@ -12,7 +12,13 @@
         <ul>
         {% for video_id, video in videos.items() %}
             {% if not video.restricted %}
-                <li><a href="{{ url_for('video_pages.video_page', video_id=video_id) }}">{{ video.title }}</a></li>
+                {% if params_video_serve %}
+                <!-- Enable if params_video_serve is set to true in config.py -->
+                    <li><a href="{{ url_for('video_pages.watch_page', v=video_id) }}">{{ video.title }}</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('video_pages.video_page', video_id=video_id) }}">{{ video.title }}</a></li>
+                {%endif %}
+
             {% endif %}
         {% endfor %}
         </ul>
@@ -22,14 +28,18 @@
             <ul>
             {% for video_id, video in videos.items() %}
                 {% if video.restricted %}
-                    <li><a href="{{ url_for('video_pages.video_page', video_id=video_id) }}">{{ video.title }}</a></li>
+                    {% if params_video_serve %}
+                            <!-- Enable if params_video_serve is set to true in config.py -->
+                            <li><a href="{{ url_for('video_pages.watch_page', v=video_id) }}">{{ video.title }}</a></li>
+                    {% else %}
+                            <li><a href="{{ url_for('video_pages.video_page', video_id=video_id) }}">{{ video.title }}</a></li>
+                    {%endif %}
+
                 {% endif %}
             {% endfor %}
             </ul>
         {% else %}
             <p>You need to log in to view restricted videos.</p>
         {% endif %}
-
-        </ul>
     </div>
 {% endblock %}
