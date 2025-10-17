@@ -6,10 +6,13 @@ FROM python:3.12.11-slim-bookworm
 
 WORKDIR /app
 
-# https://askubuntu.com/questions/1438002/mariadb-connector-c-is-not-installed
-# This fixes that error with mysql
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends libmariadb3 libmariadb-dev 
+# This fixes the incorrect time with logging on the VPS.
+# Install tzdata and set the timezone
+RUN apt-get update && \
+    apt-get install -y tzdata && \
+    ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    rm -rf /var/lib/apt/lists/
 
 # Install pip requirements
 COPY requirements.txt requirements.txt
