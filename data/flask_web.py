@@ -12,7 +12,7 @@ from flask_cors import CORS, cross_origin
 ## Auth test
 from flask_login import LoginManager, UserMixin, current_user
 
-from models import User, db, bcrypt
+from models import User, db, bcrypt, CloudflareProxyFix
 # from config import log_enabled, password_gen_enabled, extra_logs
 from config import Config
 import os
@@ -138,26 +138,6 @@ def inject_user():
     return dict(current_user=current_user)
 
 ####
-
-### New for traefik, shows real IPs
-
-# Basic class to get the HTTP_CF_CONNECTING_IP, or HTTP_X_FORWARDED_FOR headers.
-class CloudflareProxyFix:
-    def __init__(self, app):
-        self.app = app
-
-    def __call__(self, environ, start_response):
-        # Cloudflare sets CF-Connecting-IP
-        if 'HTTP_CF_CONNECTING_IP' in environ:
-            environ['REMOTE_ADDR'] = environ['HTTP_CF_CONNECTING_IP']
-        # Fallback to X-Forwarded-For if CF-Connecting-IP is not present,
-        # but only take the first IP (the real client IP).
-        elif 'HTTP_X_FORWARDED_FOR' in environ:
-            # X-Forwarded-For can contain multiple IPs (client, proxy1, proxy2)
-            # We want the leftmost one (the client)
-            forwarded_for_ips = environ['HTTP_X_FORWARDED_FOR'].split(',')[0].strip()
-            environ['REMOTE_ADDR'] = forwarded_for_ips
-        return self.app(environ, start_response)
 
 # Apply the custom middleware
 app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
