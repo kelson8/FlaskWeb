@@ -1,4 +1,4 @@
-FROM python:3.12.11-slim-bookworm
+FROM python:3.12.12-slim-bookworm
 
 # https://www.freecodecamp.org/news/how-to-dockerize-a-flask-app/
 # https://smirnov-am.github.io/running-flask-in-production-with-docker/
