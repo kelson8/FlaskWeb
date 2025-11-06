@@ -88,7 +88,6 @@ This website now uses a template system for videos [video_template.html](https:/
   }
 }
 ```
-4. 
 
 **To add new pages to the site:**
 1. Create a new html file in `data/templates`, specify a category such as `data/templates/projects` if needed.

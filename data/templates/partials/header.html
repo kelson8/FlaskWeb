@@ -28,11 +28,11 @@
         </ul>
 
         <!-- New for login/logout -->
-        <div id="login_logout_button" class="ml-auto d-flex align-items-center"> <!-- Flexbox for alignment -->
+        <div id="login_logout_button" class="ml-auto d-flex align-items-center login-logout-button">
             {% if current_user.is_authenticated %}
-                <a class="btn btn-outline-light mx-2" href="/logout">Logout</a>
+                <a class="btn btn-outline-light mx-2 login-logout-button" href="/logout">Logout</a>
             {% else %}
-                <a class="btn btn-outline-light mx-2" href="/login">Login</a>
+                <a class="btn btn-outline-light mx-2 login-logout-button" href="/login">Login</a>
             {% endif %}
         </div>
 

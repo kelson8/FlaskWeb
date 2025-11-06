@@ -51,21 +51,34 @@
 
 /* ---------------- */
 /* Dark Mode fixes */
-body[data-bs-theme='light'] a {
-  /* color: #007bff; A strong blue for visibility */
-  color: #644579; /* A strong blue for visibility */
-  text-decoration: underline; /* Underlining links can enhance readability */
+
+html[data-bs-theme='light'] a {
+  color: #3399ff !important;
+  text-decoration: underline !important;
+}
+
+html[data-bs-theme='light'] a.nav-link,
+html[data-bs-theme='light'] a.navbar-brand {
+  color: #c0c0c0 !important;
+  text-decoration: none !important;
+}
+
+html[data-bs-theme='light'] div.login-logout-button,
+html[data-bs-theme='light'] a.login-logout-button
+ {
+	color: #000 !important;
+	text-decoration: none !important;
 }
 
 /* Hover State */
-body[data-bs-theme='light'] a:hover,
-body[data-bs-theme='light'] a:focus {
-  color: #0056b3; /* A darker blue for hover effect */
+html[data-bs-theme='light'] a:hover,
+html[data-bs-theme='light'] a:focus {
+  color: #0056b3;
 }
 
 /* Visited Links */
-body[data-bs-theme='light'] a:visited {
-  color: #6f42c1; /* A distinguishable color for visited links */
+html[data-bs-theme='light'] a:visited {
+  color: #6f42c1;
 }
 
 /* body { */
