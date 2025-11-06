@@ -246,6 +246,11 @@ def index():
     return render_template("index.html")
     # return render_template("index.html", password=password_gen(20))
 
+# Cloudflare robots.txt
+@app.route("/robots.txt")
+def robots_file():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'robots.txt', mimetype='text/plain')
+
 # if passwordGenEnabled:
 #     @app.route("/passwordgen")
 #     def password_gen_test():
