@@ -144,6 +144,12 @@ def inject_user():
 # Apply the custom middleware
 app.wsgi_app = CloudflareProxyFix(app.wsgi_app)
 
+# Get the current year for the copyright info.
+# This makes it work in all templates.
+@app.context_processor
+def inject_current_year():
+    return {'current_year': datetime.datetime.now().year}
+
 ###
 
 #-----------------
