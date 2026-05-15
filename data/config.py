@@ -17,7 +17,7 @@ class Config:
 
     # Change the file download directory for the app here
     # If is_vps_enabled is True, then this has no effect
-    download_directory = "D:\linode\FlaskWeb\data\downloads"
+    download_directory = "D:\\linode\\FlaskWeb\\data\\downloads"
 
     # Toggle this on/off for docker being enabled, mostly modifies the paths
 
