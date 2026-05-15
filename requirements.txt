@@ -27,7 +27,8 @@ flask-wtf
 # gnupg
 # Html
 beautifulsoup4
-htmlmin
+# This is broken in Python 3.14.5, and my Flask website isn't using it anyways.
+#htmlmin
 validators
 
 python-dotenv

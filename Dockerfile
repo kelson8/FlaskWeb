@@ -1,4 +1,5 @@
-FROM python:3.12.12-slim-bookworm
+# Tested Python 3.14.5 working on my LAN, this may need more testing.
+FROM python:3.14.5-slim-bookworm
 
 # https://www.freecodecamp.org/news/how-to-dockerize-a-flask-app/
 # https://smirnov-am.github.io/running-flask-in-production-with-docker/
