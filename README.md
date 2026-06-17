@@ -1,6 +1,14 @@
 # KelsonCraft Website
 
-This is the code for the kelsoncraft.net website which is running on Python Flask
+# Website Updates
+I will most likely not be updating this website anymore, I have switched over to using Astro.
+
+Here is the AGPLv3 licensed new website
+* https://github.com/kelson8/KelsonCraft-Website
+
+---
+
+This is the original code for the kelsoncraft.net website which used to be running on Python Flask.
 
 I have a dark mode toggle for the website, and I'm using bootstrap v5.
 
