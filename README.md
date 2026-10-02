@@ -3,8 +3,12 @@
 # Website Updates
 I will most likely not be updating this website anymore, I have switched over to using Astro.
 
-Here is the AGPLv3 licensed new website
+Here is the AGPLv3 licensed new website, I added the KelsonCraft self hosted Git repo to this also.
 * https://github.com/kelson8/KelsonCraft-Website
+* https://git.kelsoncraft.net/kelson8/KelsonCraft-Website
+
+This KelsonCraft Flask website has been archived as of 10-1-2026 and will no longer be updated.
+It will be kept on GitHub for my commit history, and on my self hosted [Forgejo](https://forgejo.org/) instance hosted on the KelsonCraft website.
 
 ---
 
